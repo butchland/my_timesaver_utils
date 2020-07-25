@@ -2,15 +2,15 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"PROF_DATA": "01_core.ipynb",
-         "profile_call": "01_core.ipynb",
-         "print_prof_data": "01_core.ipynb",
-         "clear_prof_data": "01_core.ipynb",
-         "get_prof_data": "01_core.ipynb",
-         "start_record": "01_core.ipynb",
-         "end_record": "01_core.ipynb"}
+index = {"PROF_DATA": "01_profiling.ipynb",
+         "profile_call": "01_profiling.ipynb",
+         "print_prof_data": "01_profiling.ipynb",
+         "clear_prof_data": "01_profiling.ipynb",
+         "get_prof_data": "01_profiling.ipynb",
+         "start_record": "01_profiling.ipynb",
+         "end_record": "01_profiling.ipynb"}
 
-modules = ["core.py"]
+modules = ["profiling.py"]
 
 doc_url = "https://butchland.github.io/my_timesaver_utils/"
 

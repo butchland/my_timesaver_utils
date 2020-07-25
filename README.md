@@ -21,6 +21,15 @@ This is the current list of functions
 
 ### Profiling Utils
 
+Import the utils -- You can either import all the utilities
+```
+from my_timesaver_utils import *
+```
+Or you can import only the profiling package
+```
+from my_timesaver_utils.profiling import *
+```
+
 Decorate method or function you want to profile
 
 ```python

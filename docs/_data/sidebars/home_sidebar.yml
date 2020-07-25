@@ -11,7 +11,7 @@ entries:
       url: /
     - output: web,pdf
       title: core
-      url: /core
+      url: /profiling
     output: web
     title: my_timesaver_utils
   output: web

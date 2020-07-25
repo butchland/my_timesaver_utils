@@ -66,7 +66,19 @@ description: "A set of simple utilities I found useful to import "
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Profiling-Utils">Profiling Utils<a class="anchor-link" href="#Profiling-Utils"> </a></h3><p>Decorate method or function you want to profile</p>
+<h3 id="Profiling-Utils">Profiling Utils<a class="anchor-link" href="#Profiling-Utils"> </a></h3><p>Import the utils -- You can either import all the utilities</p>
+
+<pre><code>from my_timesaver_utils import *</code></pre>
+<p>Or you can import only the profiling package</p>
+
+<pre><code>from my_timesaver_utils.profiling import *</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Decorate method or function you want to profile</p>
 
 </div>
 </div>
@@ -235,7 +247,7 @@ Execution time max: 9.005, average: 4.504
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If you call <a href="/my_timesaver_utils/core#print_prof_data"><code>print_prof_data</code></a> without any arguments, it will print all the timings for all the functions</p>
+<p>If you call <a href="/my_timesaver_utils/profiling#print_prof_data"><code>print_prof_data</code></a> without any arguments, it will print all the timings for all the functions</p>
 
 </div>
 </div>
@@ -300,7 +312,7 @@ Execution time max: 9.005, average: 4.504
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Calling the <a href="/my_timesaver_utils/core#clear_prof_data"><code>clear_prof_data</code></a> will clear out all the previously recorded timings.</p>
+<p>Calling the <a href="/my_timesaver_utils/profiling#clear_prof_data"><code>clear_prof_data</code></a> will clear out all the previously recorded timings.</p>
 
 </div>
 </div>
