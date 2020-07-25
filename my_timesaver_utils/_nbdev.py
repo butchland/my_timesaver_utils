@@ -10,8 +10,7 @@ index = {"PROF_DATA": "01_core.ipynb",
          "start_record": "01_core.ipynb",
          "end_record": "01_core.ipynb"}
 
-modules = ["all.py",
-           "core.py"]
+modules = ["core.py"]
 
 doc_url = "https://butchland.github.io/my_timesaver_utils/"
 

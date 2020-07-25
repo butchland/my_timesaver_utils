@@ -26,13 +26,23 @@ def profile_call(fn):
 
     return with_profiling
 
-def print_prof_data():
+def _print_data(fname, data):
+    max_time = max(data[1])
+    avg_time = sum(data[1]) / len(data[1])
+    print(f'Function {fname} called {data[0]} times.')
+    print(f'Execution time max: {max_time:.3f}, average: {avg_time:.3f}')
+
+def print_prof_data(fname=None):
     'print out profile data'
+    if fname is not None:
+        if fname not in PROF_DATA:
+            warnings.warn(f'Function {fname} has no profile data')
+            return
+        _print_data(fname, PROF_DATA[fname])
+        return
+
     for fname, data in PROF_DATA.items():
-        max_time = max(data[1])
-        avg_time = sum(data[1]) / len(data[1])
-        print(f'Function {fname} called {data[0]} times.')
-        print(f'Execution time max: {max_time:.3f}, average: {avg_time:.3f}')
+        _print_data(fname, data)
 
 def clear_prof_data():
     'clear out profile data'
@@ -46,6 +56,7 @@ def get_prof_data(name):
 # Cell
 import warnings
 def start_record(name):
+    'start recording time for name'
     start_time = time.time()
     if name not in PROF_DATA:
         PROF_DATA[name] = [0, [],0]
@@ -55,6 +66,7 @@ def start_record(name):
     PROF_DATA[name][2] = start_time
 
 def end_record(name):
+    'end recording time and add elapsed time to profile data'
     if name not in PROF_DATA:
         warnings.warn(f'function {name} end time not recorded because start time not found')
         return
