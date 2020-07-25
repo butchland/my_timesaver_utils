@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: core
+      title: Profiling
       url: /profiling
     output: web
     title: my_timesaver_utils
