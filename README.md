@@ -32,7 +32,7 @@ from my_timesaver_utils.profiling import *
 
 Decorate method or function you want to profile
 
-```python
+```
 import time
 
 @profile_call
@@ -43,14 +43,14 @@ def test_func(t=2.0):
 
 Call your method or function
 
-```python
+```
 for i in range(10):
     test_func(i)
 ```
 
 Print your profile data
 
-```python
+```
 print_prof_data('test_func')
 ```
 
@@ -60,7 +60,7 @@ print_prof_data('test_func')
 
 Get your profile data (e.g. good for graphing)
 
-```python
+```
 times = get_prof_data('test_func'); times
 ```
 
@@ -82,7 +82,7 @@ times = get_prof_data('test_func'); times
 
 If you can't add a decorator, you can start and end the recording manually and it will be added to the profile data
 
-```python
+```
 for i in range(10):
     start_record('sleep')
     time.sleep(i)
@@ -91,7 +91,7 @@ for i in range(10):
 
 If you call `print_prof_data` without any arguments, it will print all the timings for all the functions
 
-```python
+```
 print_prof_data()
 ```
 
@@ -103,16 +103,16 @@ print_prof_data()
 
 You can also get the profile data for the manually recorded calls as well.
 
-```python
+```
 times2 = get_prof_data('sleep')
 ```
 
 Calling the `clear_prof_data` will clear out all the previously recorded timings.
 
-```python
+```
 clear_prof_data()
 ```
 
-```python
+```
 print_prof_data()
 ```
