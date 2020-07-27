@@ -8,7 +8,9 @@ index = {"PROF_DATA": "01_profiling.ipynb",
          "clear_prof_data": "01_profiling.ipynb",
          "get_prof_data": "01_profiling.ipynb",
          "start_record": "01_profiling.ipynb",
-         "end_record": "01_profiling.ipynb"}
+         "end_record": "01_profiling.ipynb",
+         "save_prof_data": "01_profiling.ipynb",
+         "load_prof_data": "01_profiling.ipynb"}
 
 modules = ["profiling.py"]
 
