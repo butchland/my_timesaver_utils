@@ -32,7 +32,7 @@ description: "A set of simple utilities I found useful to import "
 <p>This is the current list of functions</p>
 <ul>
 <li>Profiling Utilities<ul>
-<li><code>@profile_call</code> - a function or method decorator to record execution times</li>
+<li><code>@profile_call(fname=None)</code> - a function or method decorator to record execution times</li>
 <li><code>print_prof_data(fname=None)</code> - prints out profile data for function <code>fname</code> or all functions if <code>fname</code> is None</li>
 <li><code>clear_prof_data()</code> - clears out profile data</li>
 <li><code>get_prof_data(fname)</code> - get exec times for <code>fname</code></li>
@@ -96,7 +96,7 @@ description: "A set of simple utilities I found useful to import "
 
 <span class="nd">@profile_call</span>
 <span class="k">def</span> <span class="nf">test_func</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     
 </pre></div>
 
@@ -134,6 +134,51 @@ description: "A set of simple utilities I found useful to import "
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>You can also add an optional funcname if you want to replace the name its stored in the profile data</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@profile_call</span><span class="p">(</span><span class="s1">&#39;wachacha&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_func2</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">test_func2</span><span class="p">()</span>
+    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Print your profile data</p>
 
 </div>
@@ -160,7 +205,46 @@ description: "A set of simple utilities I found useful to import "
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Function test_func called 10 times.
-Execution time max: 9.005, average: 4.503
+Execution time max: 1.005, average: 1.004
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Print your profile data for the test_func2 (aka wachacha)</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">print_prof_data</span><span class="p">(</span><span class="s1">&#39;wachacha&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Function wachacha called 3 times.
+Execution time max: 1.005, average: 1.004
 </pre>
 </div>
 </div>
@@ -200,16 +284,16 @@ Execution time max: 9.005, average: 4.503
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[8.821487426757812e-06,
- 1.00120210647583,
- 2.0050277709960938,
- 3.0002760887145996,
- 4.003054857254028,
- 5.001259088516235,
- 6.004206657409668,
- 7.004967927932739,
- 8.000512838363647,
- 9.00498104095459]</pre>
+<pre>[1.0050780773162842,
+ 1.005082130432129,
+ 1.0029971599578857,
+ 1.0050528049468994,
+ 1.0050477981567383,
+ 1.005047082901001,
+ 1.001734972000122,
+ 1.0003960132598877,
+ 1.005075216293335,
+ 1.005049228668213]</pre>
 </div>
 
 </div>
@@ -236,7 +320,7 @@ Execution time max: 9.005, average: 4.503
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
     <span class="n">start_record</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span>
     <span class="n">end_record</span><span class="p">(</span><span class="s1">&#39;sleep&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -291,7 +375,48 @@ Execution time max: 9.005, average: 4.503
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If you call <a href="/my_timesaver_utils/profiling#print_prof_data"><code>print_prof_data</code></a> without any arguments, it will print all the timings for all the functions</p>
+<p>You can also pass in an optional function name to replace the func name used in the profile data</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sleep2</span> <span class="o">=</span> <span class="n">profile_call</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">,</span> <span class="s1">&#39;maluman&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span> <span class="n">sleep2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you call <a href="/my_timesaver_utils/profiling_callback#print_prof_data"><code>print_prof_data</code></a> without any arguments, it will print all the timings for all the functions</p>
 
 </div>
 </div>
@@ -317,9 +442,13 @@ Execution time max: 9.005, average: 4.503
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Function test_func called 10 times.
-Execution time max: 9.005, average: 4.503
+Execution time max: 1.005, average: 1.004
+Function wachacha called 3 times.
+Execution time max: 1.005, average: 1.004
 Function sleep called 15 times.
-Execution time max: 9.001, average: 3.669
+Execution time max: 4.005, average: 1.336
+Function maluman called 3 times.
+Execution time max: 1.004, average: 1.004
 </pre>
 </div>
 </div>
@@ -397,7 +526,7 @@ Execution time max: 9.001, average: 3.669
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Calling the <a href="/my_timesaver_utils/profiling#clear_prof_data"><code>clear_prof_data</code></a> will clear out all the previously recorded timings.</p>
+<p>Calling the <a href="/my_timesaver_utils/profiling_callback#clear_prof_data"><code>clear_prof_data</code></a> will clear out all the previously recorded timings.</p>
 
 </div>
 </div>
@@ -481,9 +610,13 @@ Execution time max: 9.001, average: 3.669
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Function test_func called 10 times.
-Execution time max: 9.005, average: 4.503
+Execution time max: 1.005, average: 1.004
+Function wachacha called 3 times.
+Execution time max: 1.005, average: 1.004
 Function sleep called 15 times.
-Execution time max: 9.001, average: 3.669
+Execution time max: 4.005, average: 1.336
+Function maluman called 3 times.
+Execution time max: 1.004, average: 1.004
 </pre>
 </div>
 </div>

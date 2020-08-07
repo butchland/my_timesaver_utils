@@ -5,7 +5,7 @@
 This is the current list of functions
 
 * Profiling Utilities
-    * `@profile_call` - a function or method decorator to record execution times
+    * `@profile_call(fname=None)` - a function or method decorator to record execution times
     * `print_prof_data(fname=None)` - prints out profile data for function `fname` or all functions if `fname` is None
     * `clear_prof_data()` - clears out profile data
     * `get_prof_data(fname)` - get exec times for `fname`
@@ -39,7 +39,7 @@ import time
 
 @profile_call
 def test_func(t=2.0):
-    time.sleep(t)
+    time.sleep(1)
     
 ```
 
@@ -50,6 +50,20 @@ for i in range(10):
     test_func(i)
 ```
 
+You can also add an optional funcname if you want to replace the name its stored in the profile data
+
+```
+@profile_call('wachacha')
+def test_func2():
+    time.sleep(1.0)
+```
+
+```
+for i in range(3):
+    test_func2()
+    
+```
+
 Print your profile data
 
 ```
@@ -57,7 +71,17 @@ print_prof_data('test_func')
 ```
 
     Function test_func called 10 times.
-    Execution time max: 9.005, average: 4.503
+    Execution time max: 1.005, average: 1.004
+
+
+Print your profile data for the test_func2 (aka wachacha)
+
+```
+print_prof_data('wachacha')
+```
+
+    Function wachacha called 3 times.
+    Execution time max: 1.005, average: 1.004
 
 
 Get your profile data (e.g. good for graphing)
@@ -69,16 +93,16 @@ times = get_prof_data('test_func'); times
 
 
 
-    [8.821487426757812e-06,
-     1.00120210647583,
-     2.0050277709960938,
-     3.0002760887145996,
-     4.003054857254028,
-     5.001259088516235,
-     6.004206657409668,
-     7.004967927932739,
-     8.000512838363647,
-     9.00498104095459]
+    [1.0050780773162842,
+     1.005082130432129,
+     1.0029971599578857,
+     1.0050528049468994,
+     1.0050477981567383,
+     1.005047082901001,
+     1.001734972000122,
+     1.0003960132598877,
+     1.005075216293335,
+     1.005049228668213]
 
 
 
@@ -87,7 +111,7 @@ If you can't add a decorator, you can start and end the recording manually and i
 ```
 for i in range(10):
     start_record('sleep')
-    time.sleep(i)
+    time.sleep(1.)
     end_record('sleep')
 ```
 
@@ -102,6 +126,16 @@ for i in range(5):
     sleep(i)
 ```
 
+You can also pass in an optional function name to replace the func name used in the profile data
+
+```
+sleep2 = profile_call(time.sleep, 'maluman')
+```
+
+```
+for i in range(3): sleep2(1)
+```
+
 If you call `print_prof_data` without any arguments, it will print all the timings for all the functions
 
 ```
@@ -109,9 +143,13 @@ print_prof_data()
 ```
 
     Function test_func called 10 times.
-    Execution time max: 9.005, average: 4.503
+    Execution time max: 1.005, average: 1.004
+    Function wachacha called 3 times.
+    Execution time max: 1.005, average: 1.004
     Function sleep called 15 times.
-    Execution time max: 9.001, average: 3.669
+    Execution time max: 4.005, average: 1.336
+    Function maluman called 3 times.
+    Execution time max: 1.004, average: 1.004
 
 
 You can also get the profile data for the manually recorded calls as well.
@@ -151,7 +189,11 @@ print_prof_data()
 ```
 
     Function test_func called 10 times.
-    Execution time max: 9.005, average: 4.503
+    Execution time max: 1.005, average: 1.004
+    Function wachacha called 3 times.
+    Execution time max: 1.005, average: 1.004
     Function sleep called 15 times.
-    Execution time max: 9.001, average: 3.669
+    Execution time max: 4.005, average: 1.336
+    Function maluman called 3 times.
+    Execution time max: 1.004, average: 1.004
 

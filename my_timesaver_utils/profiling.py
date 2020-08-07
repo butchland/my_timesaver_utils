@@ -10,30 +10,48 @@ from functools import wraps
 
 PROF_DATA = {}
 
+# Internal Cell
+def _logtime(fn,new_name, args, kwargs):
+    # use func name as key if new_name is None else use new_name
+    fname = fn.__name__ if new_name is None else new_name
+    start_time = time.time()
+    ret = fn(*args, **kwargs)
+    elapsed_time = time.time() - start_time
+    if fname not in PROF_DATA:
+        PROF_DATA[fname] = [0, [],0]
+    PROF_DATA[fname][0] += 1
+    PROF_DATA[fname][1].append(elapsed_time)
+    return ret
+
+
 # Cell
-def profile_call(fn):
-    'decorator to profile a method - stores data in PROF_DATA'
+def profile_call(decorator_arg, fn_name=None):
+    'decorator to profile a method with an optional name - stores data in PROF DATA'
+#     print(f'arg is {decorator_arg} type {type(decorator_arg)} fn_name {fn_name}')
+    if type(decorator_arg) == str:
+        def _inner_profile_call(fn):
+            @wraps(fn)
+            def with_profiling(*args, **kwargs):
+                return _logtime(fn,decorator_arg, args,kwargs)
+            return with_profiling
+        return _inner_profile_call
+
+    # else decorator_arg is function
+    fn = decorator_arg
     @wraps(fn)
     def with_profiling(*args, **kwargs):
-        start_time = time.time()
-        ret = fn(*args, **kwargs)
-        elapsed_time = time.time() - start_time
-
-        if fn.__name__ not in PROF_DATA:
-            PROF_DATA[fn.__name__] = [0, [],0]
-        PROF_DATA[fn.__name__][0] += 1
-        PROF_DATA[fn.__name__][1].append(elapsed_time)
-
-        return ret
+        return _logtime(fn, fn_name, args, kwargs)
 
     return with_profiling
 
+# Internal Cell
 def _print_data(fname, data):
     max_time = max(data[1])
     avg_time = sum(data[1]) / len(data[1])
     print(f'Function {fname} called {data[0]} times.')
     print(f'Execution time max: {max_time:.3f}, average: {avg_time:.3f}')
 
+# Cell
 def print_prof_data(fname=None):
     'print out profile data'
     if fname is not None:
@@ -46,11 +64,13 @@ def print_prof_data(fname=None):
     for fname, data in PROF_DATA.items():
         _print_data(fname, data)
 
+# Cell
 def clear_prof_data():
     'clear out profile data'
     global PROF_DATA
     PROF_DATA = {}
 
+# Cell
 def get_prof_data(name):
     'get profile data for name'
     return None if name not in PROF_DATA else PROF_DATA[name][1]
@@ -66,6 +86,7 @@ def start_record(name):
         return
     PROF_DATA[name][2] = start_time
 
+# Cell
 def end_record(name):
     'end recording time and add elapsed time to profile data'
     if name not in PROF_DATA:
@@ -76,7 +97,6 @@ def end_record(name):
     PROF_DATA[name][2] = 0
     PROF_DATA[name][0] += 1
     PROF_DATA[name][1].append(elapsed_time)
-
 
 
 # Cell
@@ -103,6 +123,8 @@ def save_prof_data(file_name, overwrite_file=True):
             warnings.warn(f'Error in saving {file_name}, exception triggered {e}')
     f.close()
 
+
+# Cell
 def load_prof_data(file_name, overwrite_prof_data=True):
     'load profile data from `file_name`, `overwrite_prof_data` overwrites existing profile data'
     if not isinstance(file_name, pathlib.Path):
