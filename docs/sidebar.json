@@ -1,6 +1,7 @@
 {
   "my_timesaver_utils": {
     "Overview": "/",
-    "Profiling": "/profiling"
+    "Profiling": "/profiling",
+    "Profiling Callback": "/profiling_callback"
   }
 }

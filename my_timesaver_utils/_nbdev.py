@@ -9,10 +9,15 @@ index = {"PROF_DATA": "01_profiling.ipynb",
          "get_prof_data": "01_profiling.ipynb",
          "start_record": "01_profiling.ipynb",
          "end_record": "01_profiling.ipynb",
+         "is_recording": "01_profiling.ipynb",
          "save_prof_data": "01_profiling.ipynb",
-         "load_prof_data": "01_profiling.ipynb"}
+         "load_prof_data": "01_profiling.ipynb",
+         "FASTAI_AVAILABLE": "02_profiling_callback.ipynb",
+         "MyProfileCallback": "02_profiling_callback.ipynb",
+         "Learner.to_my_profile": "02_profiling_callback.ipynb"}
 
-modules = ["profiling.py"]
+modules = ["profiling.py",
+           "profiling_callback.py"]
 
 doc_url = "https://butchland.github.io/my_timesaver_utils/"
 
