@@ -13,7 +13,14 @@ This is the current list of functions
     * `end_record(fname)` - stop recording and add elapsed time for `fname` 
     * `save_prof_data(file_name)` - save profile data to `file_name`
     * `load_prof_data(file_name)` - load profile data from `file_name`
- 
+* Profiling Callback
+    * `MyProfileCallback` - a fastai2 `Callback` that provides a hierarchical view of model training time execution
+        * `Learner.to_my_profile` - method added to a fastai2 `Learner` if `my_timesaver_utils.profiling_callback` is imported. Call it to add a `MyProfileCallback` to the `Learner` instance.
+        * `Learner.my_profile` - `MyProfileCallback` instance attached to the fastai2 `Learner` object if `to_my_profile` method is called.
+        * `print_stats` - `MyProfileCallback` method to show a hierarchical view of the training lifecycle execution stats (execution counts, avg time, max time)
+        * `get_stats` - `MyProfileCallback` method to get the execution stats as a list
+        * `clear_stats` - `MyProfileCallback` method to reset the execution stats
+        * `reset` - `MyProfileCallback` attribute to set so each call to `Learner.fit` resets the execution counts before starting the training.
 
 ## Install
 
@@ -35,6 +42,7 @@ from my_timesaver_utils.profiling import *
 Decorate method or function you want to profile
 
 ```
+#hide_output
 import time
 
 @profile_call
@@ -70,8 +78,8 @@ Print your profile data
 print_prof_data('test_func')
 ```
 
-    Function test_func called 10 times.
-    Execution time max: 1.005, average: 1.004
+    Function test_func called 20 times.
+    Execution time max: 1.005, average: 1.003
 
 
 Print your profile data for the test_func2 (aka wachacha)
@@ -81,7 +89,7 @@ print_prof_data('wachacha')
 ```
 
     Function wachacha called 3 times.
-    Execution time max: 1.005, average: 1.003
+    Execution time max: 1.005, average: 1.004
 
 
 Get your profile data (e.g. good for graphing)
@@ -93,16 +101,26 @@ times = get_prof_data('test_func'); times
 
 
 
-    [1.0051040649414062,
-     1.005079746246338,
-     1.0044150352478027,
-     1.0005950927734375,
-     1.0044729709625244,
-     1.0028409957885742,
-     1.0004441738128662,
-     1.0036230087280273,
-     1.0050239562988281,
-     1.0049309730529785]
+    [1.0015828609466553,
+     1.0050618648529053,
+     1.0031030178070068,
+     1.005044937133789,
+     1.0005640983581543,
+     1.0037250518798828,
+     1.005134105682373,
+     1.0017268657684326,
+     1.0040719509124756,
+     1.000154972076416,
+     1.0042312145233154,
+     1.0004308223724365,
+     1.0003941059112549,
+     1.004988193511963,
+     1.0016610622406006,
+     1.000688076019287,
+     1.0050456523895264,
+     1.0013980865478516,
+     1.0050151348114014,
+     1.005051851272583]
 
 
 
@@ -142,23 +160,34 @@ If you call `print_prof_data` without any arguments, it will print all the timin
 print_prof_data()
 ```
 
-    Function test_func called 10 times.
-    Execution time max: 1.005, average: 1.004
-    Function wachacha called 3 times.
+    Function test_func called 20 times.
     Execution time max: 1.005, average: 1.003
+    Function wachacha called 3 times.
+    Execution time max: 1.005, average: 1.004
     Function my_sleep called 10 times.
     Execution time max: 1.005, average: 1.002
     Function sleep called 5 times.
     Execution time max: 4.005, average: 2.003
     Function maluman called 3 times.
-    Execution time max: 1.005, average: 1.002
+    Execution time max: 1.003, average: 1.002
 
 
 You can also get the profile data for the manually recorded calls as well.
 
 ```
-times2 = get_prof_data('sleep')
+times2 = get_prof_data('sleep');times2
 ```
+
+
+
+
+    [1.1920928955078125e-05,
+     1.0048019886016846,
+     2.0013680458068848,
+     3.0050129890441895,
+     4.004997253417969]
+
+
 
 You can also save the profile data to a file
 
@@ -177,14 +206,14 @@ clear_prof_data('sleep')
 print_prof_data()
 ```
 
-    Function test_func called 10 times.
-    Execution time max: 1.005, average: 1.004
-    Function wachacha called 3 times.
+    Function test_func called 20 times.
     Execution time max: 1.005, average: 1.003
+    Function wachacha called 3 times.
+    Execution time max: 1.005, average: 1.004
     Function my_sleep called 10 times.
     Execution time max: 1.005, average: 1.002
     Function maluman called 3 times.
-    Execution time max: 1.005, average: 1.002
+    Execution time max: 1.003, average: 1.002
 
 
 Calling the `clear_prof_data` with no arguments will clear out all the previously recorded timings.
@@ -207,16 +236,16 @@ load_prof_data(save_file)
 print_prof_data()
 ```
 
-    Function test_func called 10 times.
-    Execution time max: 1.005, average: 1.004
-    Function wachacha called 3 times.
+    Function test_func called 20 times.
     Execution time max: 1.005, average: 1.003
+    Function wachacha called 3 times.
+    Execution time max: 1.005, average: 1.004
     Function my_sleep called 10 times.
     Execution time max: 1.005, average: 1.002
     Function sleep called 5 times.
     Execution time max: 4.005, average: 2.003
     Function maluman called 3 times.
-    Execution time max: 1.005, average: 1.002
+    Execution time max: 1.003, average: 1.002
 
 
 ### Profiling Callback
@@ -283,7 +312,7 @@ learner.to_my_profile()
 
 
 
-    <fastai2.learner.Learner at 0x130955f90>
+    <fastai2.learner.Learner at 0x139594d10>
 
 
 
@@ -425,7 +454,7 @@ learner.summary()
     Total trainable params: 537,984
     Total non-trainable params: 11,166,912
     
-    Optimizer used: <function Adam at 0x12fe710e0>
+    Optimizer used: <function Adam at 0x1390a5200>
     Loss function: FlattenedLoss of CrossEntropyLoss()
     
     Model frozen up to parameter group number 2
@@ -488,9 +517,9 @@ learner.fit(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.646651</td>
-      <td>0.224889</td>
-      <td>0.909871</td>
+      <td>0.655225</td>
+      <td>0.184525</td>
+      <td>0.941345</td>
       <td>00:14</td>
     </tr>
   </tbody>
@@ -503,18 +532,18 @@ The `print_stats` method now prints the execution counts, max time and avg time 
 learner.my_profile.print_stats()
 ```
 
-    fit  called 1 times. max: 14.688 avg: 14.688
-       epoch  called 1 times. max: 14.678 avg: 14.678
-          train  called 1 times. max: 12.425 avg: 12.425
-             train_batch  called 11 times. max: 1.170 avg: 1.081
-                train_pred  called 11 times. max: 0.304 avg: 0.236
+    fit  called 1 times. max: 14.542 avg: 14.542
+       epoch  called 1 times. max: 14.539 avg: 14.539
+          train  called 1 times. max: 12.276 avg: 12.276
+             train_batch  called 11 times. max: 1.159 avg: 1.076
+                train_pred  called 11 times. max: 0.269 avg: 0.236
                 train_loss  called 11 times. max: 0.001 avg: 0.001
-                train_backward  called 11 times. max: 0.848 avg: 0.834
-                train_step  called 11 times. max: 0.011 avg: 0.008
-                train_zero_grad  called 11 times. max: 0.006 avg: 0.003
-          valid  called 1 times. max: 2.245 avg: 2.245
-             valid_batch  called 11 times. max: 0.195 avg: 0.181
-                valid_pred  called 11 times. max: 0.188 avg: 0.178
+                train_backward  called 11 times. max: 0.872 avg: 0.828
+                train_step  called 11 times. max: 0.012 avg: 0.008
+                train_zero_grad  called 11 times. max: 0.005 avg: 0.003
+          valid  called 1 times. max: 2.256 avg: 2.256
+             valid_batch  called 11 times. max: 0.208 avg: 0.183
+                valid_pred  called 11 times. max: 0.201 avg: 0.180
                 valid_loss  called 11 times. max: 0.001 avg: 0.001
 
 
@@ -527,127 +556,127 @@ fit_stats = learner.my_profile.get_stats();fit_stats
 
 
 
-    [('fit', 0, [14.687530994415283]),
-     ('epoch', 1, [14.67847228050232]),
-     ('train', 2, [12.425010204315186]),
+    [('fit', 0, [14.542369842529297]),
+     ('epoch', 1, [14.539028882980347]),
+     ('train', 2, [12.275759220123291]),
      ('train_batch',
       3,
-      [1.1697580814361572,
-       1.0837702751159668,
-       1.0729010105133057,
-       1.0813207626342773,
-       1.0650250911712646,
-       1.0707719326019287,
-       1.087137222290039,
-       1.0528171062469482,
-       1.0657010078430176,
-       1.0718588829040527,
-       1.0731070041656494]),
+      [1.1590299606323242,
+       1.1047968864440918,
+       1.05731201171875,
+       1.0566790103912354,
+       1.0275590419769287,
+       1.0583367347717285,
+       1.0706360340118408,
+       1.0878362655639648,
+       1.0695040225982666,
+       1.0548479557037354,
+       1.0869989395141602]),
      ('train_pred',
       4,
-      [0.3040790557861328,
-       0.23769092559814453,
-       0.2236030101776123,
-       0.23487424850463867,
-       0.22310113906860352,
-       0.22788310050964355,
-       0.23348093032836914,
-       0.23145484924316406,
-       0.21995902061462402,
-       0.22831082344055176,
-       0.2304689884185791]),
+      [0.2687697410583496,
+       0.2391033172607422,
+       0.2244129180908203,
+       0.2360670566558838,
+       0.2223670482635498,
+       0.23363089561462402,
+       0.23241806030273438,
+       0.2404940128326416,
+       0.22686195373535156,
+       0.22826123237609863,
+       0.24588418006896973]),
      ('train_loss',
       4,
-      [0.0010890960693359375,
-       0.0006949901580810547,
-       0.0007219314575195312,
-       0.0006780624389648438,
-       0.0010340213775634766,
-       0.0007722377777099609,
-       0.0006699562072753906,
-       0.0006821155548095703,
-       0.0007212162017822266,
-       0.0006709098815917969,
-       0.0006799697875976562]),
+      [0.0010721683502197266,
+       0.0006809234619140625,
+       0.0006620883941650391,
+       0.0007491111755371094,
+       0.0006761550903320312,
+       0.000698089599609375,
+       0.0007200241088867188,
+       0.0008070468902587891,
+       0.0006639957427978516,
+       0.0006880760192871094,
+       0.0007140636444091797]),
      ('train_backward',
       4,
-      [0.8481080532073975,
-       0.8349168300628662,
-       0.8384270668029785,
-       0.8354089260101318,
-       0.8305647373199463,
-       0.8319101333618164,
-       0.8415019512176514,
-       0.8106880187988281,
-       0.8350062370300293,
-       0.8329300880432129,
-       0.8316891193389893]),
+      [0.8724572658538818,
+       0.8547101020812988,
+       0.8222289085388184,
+       0.8091421127319336,
+       0.7942306995391846,
+       0.8135287761688232,
+       0.8273820877075195,
+       0.8366448879241943,
+       0.8316769599914551,
+       0.8132097721099854,
+       0.8283698558807373]),
      ('train_step',
       4,
-      [0.01085805892944336,
-       0.007528781890869141,
-       0.007549762725830078,
-       0.007534980773925781,
-       0.007409095764160156,
-       0.007349967956542969,
-       0.009161949157714844,
-       0.007405996322631836,
-       0.007421016693115234,
-       0.007613182067871094,
-       0.007512092590332031]),
+      [0.011558294296264648,
+       0.0077021121978759766,
+       0.0075457096099853516,
+       0.007853031158447266,
+       0.007728099822998047,
+       0.00794076919555664,
+       0.007550954818725586,
+       0.0073511600494384766,
+       0.007617950439453125,
+       0.009986162185668945,
+       0.00926518440246582]),
      ('train_zero_grad',
       4,
-      [0.005597829818725586,
-       0.0029211044311523438,
-       0.002583026885986328,
-       0.002810239791870117,
-       0.002899169921875,
-       0.0028409957885742188,
-       0.0023050308227539062,
-       0.0025720596313476562,
-       0.0025682449340820312,
-       0.0023169517517089844,
-       0.0027413368225097656]),
-     ('valid', 2, [2.2446630001068115]),
+      [0.005139350891113281,
+       0.0025839805603027344,
+       0.002447843551635742,
+       0.0028531551361083984,
+       0.002541065216064453,
+       0.0025222301483154297,
+       0.0025501251220703125,
+       0.0025250911712646484,
+       0.0026650428771972656,
+       0.002687215805053711,
+       0.002749919891357422]),
+     ('valid', 2, [2.2555930614471436]),
      ('valid_batch',
       3,
-      [0.19499421119689941,
-       0.17691898345947266,
-       0.18032121658325195,
-       0.17589092254638672,
-       0.17492890357971191,
-       0.17957305908203125,
-       0.1777338981628418,
-       0.18741679191589355,
-       0.17940211296081543,
-       0.1895129680633545,
-       0.17221283912658691]),
+      [0.20812106132507324,
+       0.18181729316711426,
+       0.187255859375,
+       0.1778090000152588,
+       0.18497300148010254,
+       0.18157696723937988,
+       0.18445587158203125,
+       0.18021106719970703,
+       0.1816089153289795,
+       0.18120694160461426,
+       0.16774797439575195]),
      ('valid_pred',
       4,
-      [0.18814992904663086,
-       0.17379498481750488,
-       0.17746996879577637,
-       0.17304277420043945,
-       0.17206573486328125,
-       0.17669415473937988,
-       0.17478203773498535,
-       0.18450498580932617,
-       0.17637085914611816,
-       0.1866168975830078,
-       0.16930532455444336]),
+      [0.20078110694885254,
+       0.1788790225982666,
+       0.18420696258544922,
+       0.17487597465515137,
+       0.18212318420410156,
+       0.17869901657104492,
+       0.18164587020874023,
+       0.17727923393249512,
+       0.1787278652191162,
+       0.1784052848815918,
+       0.16483402252197266]),
      ('valid_loss',
       4,
-      [0.0013051033020019531,
-       0.0005512237548828125,
-       0.0005471706390380859,
-       0.0005497932434082031,
-       0.0005450248718261719,
-       0.0005440711975097656,
-       0.0005459785461425781,
-       0.0005478858947753906,
-       0.0005469322204589844,
-       0.0005431175231933594,
-       0.0005438327789306641])]
+      [0.001481771469116211,
+       0.0005438327789306641,
+       0.0005319118499755859,
+       0.0005309581756591797,
+       0.0005328655242919922,
+       0.0005371570587158203,
+       0.0005366802215576172,
+       0.0005400180816650391,
+       0.0005350112915039062,
+       0.0005319118499755859,
+       0.0005390644073486328])]
 
 
 
@@ -657,7 +686,7 @@ The `print_stats` can also print just the stats for one lifecycle event
 learner.my_profile.print_stats('train_batch')
 ```
 
-             train_batch  called 11 times. max: 1.170 avg: 1.081
+             train_batch  called 11 times. max: 1.159 avg: 1.076
 
 
 The `get_stats` can also just collect the stats for one lifecycle event
@@ -671,17 +700,17 @@ train_batch_stats = learner.my_profile.get_stats('train_batch'); train_batch_sta
 
     ('train_batch',
      3,
-     [1.1697580814361572,
-      1.0837702751159668,
-      1.0729010105133057,
-      1.0813207626342773,
-      1.0650250911712646,
-      1.0707719326019287,
-      1.087137222290039,
-      1.0528171062469482,
-      1.0657010078430176,
-      1.0718588829040527,
-      1.0731070041656494])
+     [1.1590299606323242,
+      1.1047968864440918,
+      1.05731201171875,
+      1.0566790103912354,
+      1.0275590419769287,
+      1.0583367347717285,
+      1.0706360340118408,
+      1.0878362655639648,
+      1.0695040225982666,
+      1.0548479557037354,
+      1.0869989395141602])
 
 
 
@@ -735,9 +764,9 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.370858</td>
-      <td>0.235521</td>
-      <td>0.912732</td>
+      <td>0.283507</td>
+      <td>0.242971</td>
+      <td>0.896996</td>
       <td>00:14</td>
     </tr>
   </tbody>
@@ -758,9 +787,9 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.231076</td>
-      <td>0.167055</td>
-      <td>0.939914</td>
+      <td>0.282430</td>
+      <td>0.160309</td>
+      <td>0.944206</td>
       <td>00:22</td>
     </tr>
   </tbody>
@@ -771,20 +800,22 @@ learner.fine_tune(1)
 learner.my_profile.print_stats()
 ```
 
-    fit  called 2 times. max: 22.034 avg: 18.256
-       epoch  called 2 times. max: 22.030 avg: 18.252
-          train  called 2 times. max: 19.765 avg: 16.002
-             train_batch  called 22 times. max: 2.025 avg: 1.429
-                train_pred  called 22 times. max: 0.302 avg: 0.232
+    fit  called 2 times. max: 22.964 avg: 18.613
+       epoch  called 2 times. max: 22.960 avg: 18.609
+          train  called 2 times. max: 20.698 avg: 16.336
+             train_batch  called 22 times. max: 2.011 avg: 1.460
+                train_pred  called 22 times. max: 0.280 avg: 0.232
                 train_loss  called 22 times. max: 0.001 avg: 0.001
-                train_backward  called 22 times. max: 1.520 avg: 1.132
-                train_step  called 22 times. max: 0.222 avg: 0.058
-                train_zero_grad  called 22 times. max: 0.011 avg: 0.005
-          valid  called 2 times. max: 2.258 avg: 2.244
-             valid_batch  called 22 times. max: 0.211 avg: 0.180
-                valid_pred  called 22 times. max: 0.204 avg: 0.177
+                train_backward  called 22 times. max: 1.540 avg: 1.165
+                train_step  called 22 times. max: 0.195 avg: 0.057
+                train_zero_grad  called 22 times. max: 0.010 avg: 0.005
+          valid  called 2 times. max: 2.277 avg: 2.267
+             valid_batch  called 22 times. max: 0.217 avg: 0.184
+                valid_pred  called 22 times. max: 0.209 avg: 0.181
                 valid_loss  called 22 times. max: 0.002 avg: 0.001
 
+
+##### My Profile Reset Attribute
 
 Setting the `reset` attribute to true on the `my_profile` attribute will cause the stats to be reset each time the `fit` method of the `Learner` is called. So only the accumulated stats for the last call to `fit` (e.g `fine_tune` calls `fit` twice, but setting the `reset` attribute to true will show only the stats for the second `fit` call.
 The default value of `reset` is `False`.
@@ -811,10 +842,10 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.158287</td>
-      <td>0.196981</td>
-      <td>0.929900</td>
-      <td>00:16</td>
+      <td>0.170414</td>
+      <td>0.168443</td>
+      <td>0.945637</td>
+      <td>00:14</td>
     </tr>
   </tbody>
 </table>
@@ -834,10 +865,10 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.090954</td>
-      <td>0.162717</td>
-      <td>0.944206</td>
-      <td>00:23</td>
+      <td>0.146039</td>
+      <td>0.141219</td>
+      <td>0.951359</td>
+      <td>00:22</td>
     </tr>
   </tbody>
 </table>
@@ -847,18 +878,18 @@ learner.fine_tune(1)
 learner.my_profile.print_stats()
 ```
 
-    fit  called 1 times. max: 23.094 avg: 23.094
-       epoch  called 1 times. max: 23.091 avg: 23.091
-          train  called 1 times. max: 20.766 avg: 20.766
-             train_batch  called 11 times. max: 2.104 avg: 1.863
-                train_pred  called 11 times. max: 0.265 avg: 0.231
+    fit  called 1 times. max: 22.159 avg: 22.159
+       epoch  called 1 times. max: 22.154 avg: 22.154
+          train  called 1 times. max: 19.886 avg: 19.886
+             train_batch  called 11 times. max: 1.939 avg: 1.784
+                train_pred  called 11 times. max: 0.264 avg: 0.231
                 train_loss  called 11 times. max: 0.001 avg: 0.001
-                train_backward  called 11 times. max: 1.648 avg: 1.519
-                train_step  called 11 times. max: 0.180 avg: 0.104
-                train_zero_grad  called 11 times. max: 0.011 avg: 0.008
-          valid  called 1 times. max: 2.318 avg: 2.318
-             valid_batch  called 11 times. max: 0.212 avg: 0.187
-                valid_pred  called 11 times. max: 0.209 avg: 0.183
+                train_backward  called 11 times. max: 1.483 avg: 1.440
+                train_step  called 11 times. max: 0.182 avg: 0.104
+                train_zero_grad  called 11 times. max: 0.010 avg: 0.008
+          valid  called 1 times. max: 2.263 avg: 2.263
+             valid_batch  called 11 times. max: 0.205 avg: 0.184
+                valid_pred  called 11 times. max: 0.198 avg: 0.180
                 valid_loss  called 11 times. max: 0.002 avg: 0.001
 
 

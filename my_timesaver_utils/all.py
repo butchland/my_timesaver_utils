@@ -1,2 +1,2 @@
 from .profiling import *
-from .profiling_package import *
+from .profiling_callback import *
