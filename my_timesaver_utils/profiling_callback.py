@@ -35,7 +35,6 @@ def _print_stat(func_name, level, data, indent_per_level=3):
     avg_time = sum(data) / len(data)
     print(f'{indent}{func_name}  called {len(data)} times. max: {max_time:.3f} avg: {avg_time:.3f}')
 
-
 # Cell
 class MyProfileCallback(Callback):
     'Callback to profile training lifecycle event performance'
@@ -57,7 +56,7 @@ class MyProfileCallback(Callback):
     def __init__(self, reset=False):
         self._reset = reset
 
-    def begin_fit(self):
+    def before_fit(self):
         if self._reset:
             self.clear_stats()
         start_record('fit')
