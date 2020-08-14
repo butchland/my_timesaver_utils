@@ -24,7 +24,6 @@ def _logtime(fn,new_name, args, kwargs):
     PROF_DATA[fname][2] = 0
     return ret
 
-
 # Cell
 def profile_call(decorator_arg, fn_name=None):
     'decorator to profile a method with an optional name - stores data in PROF DATA'
@@ -102,7 +101,6 @@ def end_record(name):
     PROF_DATA[name][0] += 1
     PROF_DATA[name][1].append(elapsed_time)
 
-
 # Cell
 def is_recording(name):
     'return True if recording for function `name` started but not yet completed'
@@ -131,7 +129,6 @@ def save_prof_data(file_name, overwrite_file=True):
         except pickle.PickeError as e:
             warnings.warn(f'Error in saving {file_name}, exception triggered {e}')
     f.close()
-
 
 # Cell
 def load_prof_data(file_name, overwrite_prof_data=True):

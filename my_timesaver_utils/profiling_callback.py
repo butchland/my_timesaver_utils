@@ -61,13 +61,13 @@ class MyProfileCallback(Callback):
             self.clear_stats()
         start_record('fit')
 
-    def begin_epoch(self):
+    def before_epoch(self):
         start_record('epoch')
 
-    def begin_train(self):
+    def before_train(self):
         start_record('train')
 
-    def begin_batch(self):
+    def before_batch(self):
         if self.learn.training:
             start_record('train_batch')
             start_record('train_pred')
@@ -154,7 +154,7 @@ class MyProfileCallback(Callback):
         if is_recording('train_zero_grad'):
             end_record('train_zero_grad')
 
-    def begin_validate(self):
+    def before_validate(self):
         start_record('valid')
 
     def after_cancel_validate(self):
