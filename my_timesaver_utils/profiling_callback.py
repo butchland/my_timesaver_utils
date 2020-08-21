@@ -9,12 +9,12 @@ from .profiling import *
 import warnings
 FASTAI_AVAILABLE = True
 try:
-    from fastai2.callback.core import Callback
-    from fastai2.learner import Learner
+    from fastai.callback.core import Callback
+    from fastai.learner import Learner
     from fastcore.foundation import patch
 except ImportError as e:
     FASTAI_AVAILABLE = False
-    warnings.warn('fastai2 package not installed, callback simulated')
+    warnings.warn('fastai package not installed, callback simulated')
 
 # Cell
 if not FASTAI_AVAILABLE:
