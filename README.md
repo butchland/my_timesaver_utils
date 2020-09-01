@@ -14,9 +14,9 @@ This is the current list of functions
     * `save_prof_data(file_name)` - save profile data to `file_name`
     * `load_prof_data(file_name)` - load profile data from `file_name`
 * Profiling Callback
-    * `MyProfileCallback` - a fastai2 `Callback` that provides a hierarchical view of model training time execution
-        * `Learner.to_my_profile` - method added to a fastai2 `Learner` if `my_timesaver_utils.profiling_callback` is imported. Call it to add a `MyProfileCallback` to the `Learner` instance.
-        * `Learner.my_profile` - `MyProfileCallback` instance attached to the fastai2 `Learner` object if `to_my_profile` method is called.
+    * `MyProfileCallback` - a fastai `Callback` that provides a hierarchical view of model training time execution
+        * `Learner.to_my_profile` - method added to a fastai `Learner` if `my_timesaver_utils.profiling_callback` is imported. Call it to add a `MyProfileCallback` to the `Learner` instance.
+        * `Learner.my_profile` - `MyProfileCallback` instance attached to the fastai `Learner` object if `to_my_profile` method is called.
         * `print_stats` - `MyProfileCallback` method to show a hierarchical view of the training lifecycle execution stats (execution counts, avg time, max time)
         * `get_stats` - `MyProfileCallback` method to get the execution stats as a list
         * `clear_stats` - `MyProfileCallback` method to reset the execution stats
@@ -262,7 +262,7 @@ from my_timesaver_utils.profiling_callback import *
 #### Example Usage
 
 ```
-from fastai2.vision.all import *
+from fastai.vision.all import *
 ```
 
 Import the whole `my_timesaver_utils` package
@@ -312,7 +312,7 @@ learner.to_my_profile()
 
 
 
-    <fastai2.learner.Learner at 0x139594d10>
+    <fastai.learner.Learner at 0x139594d10>
 
 
 
