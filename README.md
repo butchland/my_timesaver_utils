@@ -766,10 +766,10 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.283507</td>
-      <td>0.242971</td>
-      <td>0.896996</td>
-      <td>00:14</td>
+      <td>0.974439</td>
+      <td>0.237767</td>
+      <td>0.924177</td>
+      <td>00:15</td>
     </tr>
   </tbody>
 </table>
@@ -789,10 +789,10 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.282430</td>
-      <td>0.160309</td>
-      <td>0.944206</td>
-      <td>00:22</td>
+      <td>0.354515</td>
+      <td>0.197183</td>
+      <td>0.928469</td>
+      <td>00:23</td>
     </tr>
   </tbody>
 </table>
@@ -940,13 +940,7 @@ cleaner = EnhancedImageClassifierCleaner(learner)
 cleaner
 ```
 
-
-
-
-
-
-
-
+![pic of enhanced-image-classifier-cleaner widget](nbs/images/enhanced-image-classifiercleaner.png)
 
 #### Custom Valid/Train folder structures and labeled categories
 

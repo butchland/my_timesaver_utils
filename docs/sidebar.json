@@ -1,8 +1,8 @@
 {
   "my_timesaver_utils": {
     "Overview": "/",
-    "Profiling": "profiling.html",
-    "Profiling Callback": "profiling_callback.html",
-    "Enhanced Image Classifier Cleaner": "enhanced_imageclassifiercleaner.html"
+    "Profiling": "profiling",
+    "Profiling Callback": "profiling_callback",
+    "Enhanced Image Classifier Cleaner": "enhanced_imageclassifiercleaner"
   }
 }
