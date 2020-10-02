@@ -11,10 +11,13 @@ entries:
       url: /
     - output: web,pdf
       title: Profiling
-      url: /profiling
+      url: profiling.html
     - output: web,pdf
       title: Profiling Callback
-      url: /profiling_callback
+      url: profiling_callback.html
+    - output: web,pdf
+      title: Enhanced Image Classifier Cleaner
+      url: enhanced_imageclassifiercleaner.html
     output: web
     title: my_timesaver_utils
   output: web

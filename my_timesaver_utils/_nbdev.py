@@ -14,10 +14,13 @@ index = {"PROF_DATA": "01_profiling.ipynb",
          "load_prof_data": "01_profiling.ipynb",
          "FASTAI_AVAILABLE": "02_profiling_callback.ipynb",
          "MyProfileCallback": "02_profiling_callback.ipynb",
-         "Learner.to_my_profile": "02_profiling_callback.ipynb"}
+         "Learner.to_my_profile": "02_profiling_callback.ipynb",
+         "parent_move_file": "03_enhanced_imageclassifiercleaner.ipynb",
+         "EnhancedImageClassifierCleaner": "03_enhanced_imageclassifiercleaner.ipynb"}
 
 modules = ["profiling.py",
-           "profiling_callback.py"]
+           "profiling_callback.py",
+           "enhanced_imageclassifiercleaner.py"]
 
 doc_url = "https://butchland.github.io/my_timesaver_utils/"
 

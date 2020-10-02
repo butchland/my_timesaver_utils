@@ -21,6 +21,8 @@ This is the current list of functions
         * `get_stats` - `MyProfileCallback` method to get the execution stats as a list
         * `clear_stats` - `MyProfileCallback` method to reset the execution stats
         * `reset` - `MyProfileCallback` attribute to set so each call to `Learner.fit` resets the execution counts before starting the training.
+* Enhanced Image Classifier Cleaner
+    * `class EnhancedImageClassifierCleaner` - a drop-in replacement for the [`fastai.vision.widgets.ImageClassifierCleaner`](https://docs.fast.ai/vision.widgets#ImageClassifierCleaner) which adds `Apply` and `Reset` buttons to allow the user to apply or revert changes to actual dataset._(In the fastai, the application of the changes is done in a separate step, making it more cumbersome to apply across a lot of categories -- doubling it since it segregates the validation and training datasets as well)_
 
 ## Install
 
@@ -842,9 +844,9 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.170414</td>
-      <td>0.168443</td>
-      <td>0.945637</td>
+      <td>0.954453</td>
+      <td>0.249635</td>
+      <td>0.905579</td>
       <td>00:14</td>
     </tr>
   </tbody>
@@ -865,10 +867,10 @@ learner.fine_tune(1)
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.146039</td>
-      <td>0.141219</td>
-      <td>0.951359</td>
-      <td>00:22</td>
+      <td>0.354821</td>
+      <td>0.196215</td>
+      <td>0.932761</td>
+      <td>00:23</td>
     </tr>
   </tbody>
 </table>
@@ -901,5 +903,82 @@ learner.my_profile.reset
 
 
     True
+
+
+
+### Enhanced Image Classifier Cleaner
+
+Import the utils -- You can either import all the utilities
+```
+from my_timesaver_utils.all import *
+```
+Or you can import only the enhanced image classifier cleaner package
+```
+from my_timesaver_utils.enhanced_imageclassifiercleaner import *
+```
+
+#### Prerequisites
+In order to use the `EnhancedImageClassifierCleaner` (just like the fastai `ImageClassifierCleaner`), we will need to have an existing fastai `Learner` object.
+
+#### Usage
+Just create an instance of `EnhancedImageClassifierCleaner` object. 
+```
+cleaner = EnhancedImageClassifierCleaner(learner)
+cleaner # on a separate line, this will display the widget
+```
+
+If you updated your dataset, you can refresh your dataloader by running 
+```
+newdls = datablock.dataloaders(path)
+learner.dls = newdls # assume learner was previously created or loaded
+cleaner = EnhancedImageClassifierCleaner(learner)
+```
+This will then display the updated images from your dataset.
+
+```
+cleaner = EnhancedImageClassifierCleaner(learner)
+cleaner
+```
+
+
+
+
+
+
+
+
+
+#### Custom Valid/Train folder structures and labeled categories
+
+The default folder structure for the Enhanced Image Classifier Cleaner 
+assumes that you are using `RandomSplitter` or `GrandparentSplitter` as 
+your `splitter` and `parent_label` as the `get_y` parameter in your datablock.
+
+If you have a custom valid/train splitter and your image files are not segregated by categories within them,
+you will need  to create a custom file mover in order to update your image labels (aka categories).
+
+The default implementation of the `file_mover` is shown below:
+```
+export
+import shutil
+def parent_move_file(fn, newcat):
+    new_path = fn.parent.parent/newcat
+    if new_path.is_dir():
+        shutil.move(str(fn), new_path)
+        new_file = new_path/fn.name
+        return new_file
+    return fn
+```
+The default implementation will work with either a `RandomSplitter` or `GrandparentSplitter`
+and if `parent_label` is used to get the labels. 
+
+Otherwise, you will need to modify the file_mover argument with a custom one
+and pass it as follows
+
+```
+cleaner = EnhancedImageClassifierCleaner(learner, file_mover=custom_file_mover)
+```
+
+
 
 

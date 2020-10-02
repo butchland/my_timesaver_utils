@@ -2,6 +2,7 @@
 
 title: My Timesaver utilities
 
+
 keywords: fastai
 sidebar: home_sidebar
 
@@ -44,15 +45,19 @@ nb_path: "nbs/index.ipynb"
 </ul>
 </li>
 <li>Profiling Callback<ul>
-<li><a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> - a fastai <code>Callback</code> that provides a hierarchical view of model training time execution<ul>
-<li><a href="/my_timesaver_utils/profiling_callback#Learner.to_my_profile"><code>Learner.to_my_profile</code></a> - method added to a fastai <code>Learner</code> if <code>my_timesaver_utils.profiling_callback</code> is imported. Call it to add a <a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> to the <code>Learner</code> instance.</li>
-<li><code>Learner.my_profile</code> - <a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> instance attached to the fastai <code>Learner</code> object if <code>to_my_profile</code> method is called.</li>
-<li><code>print_stats</code> - <a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> method to show a hierarchical view of the training lifecycle execution stats (execution counts, avg time, max time)</li>
-<li><code>get_stats</code> - <a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> method to get the execution stats as a list</li>
-<li><code>clear_stats</code> - <a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> method to reset the execution stats</li>
-<li><code>reset</code> - <a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> attribute to set so each call to <code>Learner.fit</code> resets the execution counts before starting the training.</li>
+<li><a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> - a fastai <code>Callback</code> that provides a hierarchical view of model training time execution<ul>
+<li><a href="/my_timesaver_utils/profiling_callback.html#Learner.to_my_profile"><code>Learner.to_my_profile</code></a> - method added to a fastai <code>Learner</code> if <code>my_timesaver_utils.profiling_callback</code> is imported. Call it to add a <a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> to the <code>Learner</code> instance.</li>
+<li><code>Learner.my_profile</code> - <a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> instance attached to the fastai <code>Learner</code> object if <code>to_my_profile</code> method is called.</li>
+<li><code>print_stats</code> - <a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> method to show a hierarchical view of the training lifecycle execution stats (execution counts, avg time, max time)</li>
+<li><code>get_stats</code> - <a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> method to get the execution stats as a list</li>
+<li><code>clear_stats</code> - <a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> method to reset the execution stats</li>
+<li><code>reset</code> - <a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> attribute to set so each call to <code>Learner.fit</code> resets the execution counts before starting the training.</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>Enhanced Image Classifier Cleaner<ul>
+<li><code>class EnhancedImageClassifierCleaner</code> - a drop-in replacement for the <code>fastai.vision.widgets.ImageClassifierCleaner</code> which adds <code>Apply</code> and <code>Reset</code> buttons to allow the user to apply or revert changes to actual dataset.<em>(In the fastai, the application of the changes is done in a separate step, making it more cumbersome to apply across a lot of categories -- doubling it since it segregates the validation and training datasets as well)</em></li>
 </ul>
 </li>
 </ul>
@@ -439,7 +444,7 @@ Execution time max: 1.005, average: 1.004
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If you call <a href="/my_timesaver_utils/profiling#print_prof_data"><code>print_prof_data</code></a> without any arguments, it will print all the timings for all the functions</p>
+<p>If you call <a href="/my_timesaver_utils/profiling.html#print_prof_data"><code>print_prof_data</code></a> without any arguments, it will print all the timings for all the functions</p>
 
 </div>
 </div>
@@ -571,7 +576,7 @@ Execution time max: 1.003, average: 1.002
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Calling <a href="/my_timesaver_utils/profiling#clear_prof_data"><code>clear_prof_data</code></a> for a function will clear out the data for that function</p>
+<p>Calling <a href="/my_timesaver_utils/profiling.html#clear_prof_data"><code>clear_prof_data</code></a> for a function will clear out the data for that function</p>
 
 </div>
 </div>
@@ -617,7 +622,7 @@ Execution time max: 1.003, average: 1.002
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Calling the <a href="/my_timesaver_utils/profiling#clear_prof_data"><code>clear_prof_data</code></a> with no arguments will clear out all the previously recorded timings.</p>
+<p>Calling the <a href="/my_timesaver_utils/profiling.html#clear_prof_data"><code>clear_prof_data</code></a> with no arguments will clear out all the previously recorded timings.</p>
 
 </div>
 </div>
@@ -760,7 +765,7 @@ Execution time max: 1.003, average: 1.002
 <p>Import the whole <code>my_timesaver_utils</code> package</p>
 
 <pre><code>from my_timesaver_utils.all import *</code></pre>
-<p>or as an alternative, just import the <a href="/my_timesaver_utils/profiling_callback"><code>profiling_callback</code></a> package</p>
+<p>or as an alternative, just import the <a href="/my_timesaver_utils/profiling_callback.html"><code>profiling_callback</code></a> package</p>
 
 <pre><code>from my_timesaver_utils.profiling_callback import *</code></pre>
 
@@ -908,7 +913,7 @@ Execution time max: 1.003, average: 1.002
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Calling the <code>to_my_profile</code> method on the <code>learner</code> object adds a callback called <a href="/my_timesaver_utils/profiling_callback#MyProfileCallback"><code>MyProfileCallback</code></a> which can be accessed through the <code>learner</code> attribute <code>my_profile</code>.</p>
+<p>Calling the <code>to_my_profile</code> method on the <code>learner</code> object adds a callback called <a href="/my_timesaver_utils/profiling_callback.html#MyProfileCallback"><code>MyProfileCallback</code></a> which can be accessed through the <code>learner</code> attribute <code>my_profile</code>.</p>
 
 </div>
 </div>
@@ -1797,9 +1802,9 @@ The default value of <code>reset</code> is <code>False</code>.</p>
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.170414</td>
-      <td>0.168443</td>
-      <td>0.945637</td>
+      <td>0.954453</td>
+      <td>0.249635</td>
+      <td>0.905579</td>
       <td>00:14</td>
     </tr>
   </tbody>
@@ -1825,10 +1830,10 @@ The default value of <code>reset</code> is <code>False</code>.</p>
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.146039</td>
-      <td>0.141219</td>
-      <td>0.951359</td>
-      <td>00:22</td>
+      <td>0.354821</td>
+      <td>0.196215</td>
+      <td>0.932761</td>
+      <td>00:23</td>
     </tr>
   </tbody>
 </table>
@@ -1918,6 +1923,99 @@ The default value of <code>reset</code> is <code>False</code>.</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Enhanced-Image-Classifier-Cleaner">Enhanced Image Classifier Cleaner<a class="anchor-link" href="#Enhanced-Image-Classifier-Cleaner"> </a></h3><p>Import the utils -- You can either import all the utilities</p>
+
+<pre><code>from my_timesaver_utils.all import *</code></pre>
+<p>Or you can import only the enhanced image classifier cleaner package</p>
+
+<pre><code>from my_timesaver_utils.enhanced_imageclassifiercleaner import *</code></pre>
+<h4 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites"> </a></h4><p>In order to use the <a href="/my_timesaver_utils/enhanced_imageclassifiercleaner.html#EnhancedImageClassifierCleaner"><code>EnhancedImageClassifierCleaner</code></a> (just like the fastai <code>ImageClassifierCleaner</code>), we will need to have an existing fastai <code>Learner</code> object.</p>
+<h4 id="Usage">Usage<a class="anchor-link" href="#Usage"> </a></h4><p>Just create an instance of <a href="/my_timesaver_utils/enhanced_imageclassifiercleaner.html#EnhancedImageClassifierCleaner"><code>EnhancedImageClassifierCleaner</code></a> object.</p>
+
+<pre><code>cleaner = EnhancedImageClassifierCleaner(learner)
+cleaner # on a separate line, this will display the widget</code></pre>
+<p>If you updated your dataset, you can refresh your dataloader by running</p>
+
+<pre><code>newdls = datablock.dataloaders(path)
+learner.dls = newdls # assume learner was previously created or loaded
+cleaner = EnhancedImageClassifierCleaner(learner)</code></pre>
+<p>This will then display the updated images from your dataset.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleaner</span> <span class="o">=</span> <span class="n">EnhancedImageClassifierCleaner</span><span class="p">(</span><span class="n">learner</span><span class="p">)</span>
+<span class="n">cleaner</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Custom-Valid/Train-folder-structures-and-labeled-categories">Custom Valid/Train folder structures and labeled categories<a class="anchor-link" href="#Custom-Valid/Train-folder-structures-and-labeled-categories"> </a></h4><p>The default folder structure for the Enhanced Image Classifier Cleaner 
+assumes that you are using <code>RandomSplitter</code> or <code>GrandparentSplitter</code> as 
+your <code>splitter</code> and <code>parent_label</code> as the <code>get_y</code> parameter in your datablock.</p>
+<p>If you have a custom valid/train splitter and your image files are not segregated by categories within them,
+you will need  to create a custom file mover in order to update your image labels (aka categories).</p>
+<p>The default implementation of the <code>file_mover</code> is shown below:</p>
+
+<pre><code>export
+import shutil
+def parent_move_file(fn, newcat):
+    new_path = fn.parent.parent/newcat
+    if new_path.is_dir():
+        shutil.move(str(fn), new_path)
+        new_file = new_path/fn.name
+        return new_file
+    return fn</code></pre>
+<p>The default implementation will work with either a <code>RandomSplitter</code> or <code>GrandparentSplitter</code>
+and if <code>parent_label</code> is used to get the labels.</p>
+<p>Otherwise, you will need to modify the file_mover argument with a custom one
+and pass it as follows</p>
+
+<pre><code>cleaner = EnhancedImageClassifierCleaner(learner, file_mover=custom_file_mover)</code></pre>
+
+</div>
+</div>
+</div>
 </div>
  
 
