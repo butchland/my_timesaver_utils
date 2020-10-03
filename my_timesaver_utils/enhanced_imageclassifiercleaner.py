@@ -75,7 +75,7 @@ class EnhancedImageClassifierCleaner(GetAttr):
         fn = self.fns[idx] # filename at index idx of fns (count of widgets)
         if fn is not None and fn.is_file():
             fn.unlink()
-            iwi_indx = items.val2idx()[fn]
+            iwi_indx = items.val2idx().get(fn,-1)
             if iwi_indx != -1:
                 del iwi[iwi_indx]
                 del items[iwi_indx]
@@ -90,13 +90,19 @@ class EnhancedImageClassifierCleaner(GetAttr):
     def reclassify_item(self, items, iwi, idx,  new_cat):
         fn = self.fns[idx]
         if fn is not None and fn.is_file():
-            iwi_indx = items.val2idx()[fn]
+            iwi_indx = items.val2idx().get(fn,-1)
             new_file = self.file_mover(fn, new_cat)
             if new_file != fn:
-                items[iwi_indx] = new_file
+                if iwi_indx == -1:
+                    items.append(new_file)
+                else:
+                    items[iwi_indx] = new_file
                 new_loss = self.recompute_loss(new_file)
                 new_iwi_entry = (new_file, new_cat, new_loss)
-                iwi[iwi_indx] = new_iwi_entry
+                if iwi_indx == -1:
+                    iwi.append(new_iwi_entry)
+                else:
+                    iwi[iwi_indx] = new_iwi_entry
 
     def apply_changes(self, b):
         self.update_message = False
