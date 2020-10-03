@@ -24,13 +24,13 @@ class EnhancedImageClassifierCleaner(GetAttr):
         self.learn = learn
         self.file_mover = file_mover
         vocab = learn.dls.vocab
+        self.path = learn.dls.path
         self.default = self.iw = ImagesCleaner(vocab, **kwargs)
         self.dd_cats = Dropdown(options=vocab)
         self.dd_ds   = Dropdown(options=('Train','Valid'))
         self.iwis = _get_iw_info(learn,0),_get_iw_info(learn,1)
         self.dd_ds.observe(self.on_change_ds, 'value')
         self.dd_cats.observe(self.on_change_ds, 'value')
-        self.on_change_ds()
         # add message label and reset/apply buttons
         self.btn_apply_changes = Button(description='Apply', disabled=True)
         self.btn_reset_changes = Button(description='Reset', disabled=True)
@@ -39,7 +39,6 @@ class EnhancedImageClassifierCleaner(GetAttr):
         self.btn_reset_changes.on_click(self.reset_changes)
         self.update_message = False
         self.on_change_ds()
-        self.path = learn.dls.path
         self.widget = VBox([
                     HBox([
                         VBox([self.dd_cats,
@@ -93,6 +92,7 @@ class EnhancedImageClassifierCleaner(GetAttr):
             iwi_indx = items.val2idx().get(fn,-1)
             new_file = self.file_mover(fn, new_cat)
             if new_file != fn:
+                self.fns[idx] = new_file
                 if iwi_indx == -1:
                     items.append(new_file)
                 else:
@@ -104,7 +104,15 @@ class EnhancedImageClassifierCleaner(GetAttr):
                 else:
                     iwi[iwi_indx] = new_iwi_entry
 
-    def apply_changes(self, b):
+    def delete_items(self):
+        ds_index = self.dd_ds.index # use train(0) or valid(1)
+        iwi = self.iwis[ds_index] # get filenames,targs,loss for train/valid
+        items = L(iwi).itemgot(0) # get filenames for  train/valid
+        for_deletion = self.delete().copy()
+        for idx in for_deletion:
+            self.delete_dataset_item(items, iwi, idx)
+
+    def reclassify_items(self):
         self.update_message = False
         ds_index = self.dd_ds.index # use train(0) or valid(1)
         iwi = self.iwis[ds_index] # get filenames,targs,loss for train/valid
@@ -112,10 +120,11 @@ class EnhancedImageClassifierCleaner(GetAttr):
         for idx,new_cat in self.change():
             if new_cat != self.dd_cats.value: # new_cat is not equal to existing cat
                 self.reclassify_item(items, iwi, idx, new_cat)
-        for idx in self.delete():
-            self.delete_dataset_item(items, iwi, idx)
-        new_fns = [fn for fn in self.fns if fn is not None]
-        self.fns = new_fns
+
+    def apply_changes(self, b):
+        self.update_message = False
+        self.reclassify_items()
+        self.delete_items()
         self.on_change_ds()
         self.check_pending_changes()
         self.update_message = True
@@ -125,14 +134,18 @@ class EnhancedImageClassifierCleaner(GetAttr):
         dd_children = L(self.iw.widget.children).itemgot(1)
         for dd_child in dd_children:
             dd_child.value = '<Keep>'
-        self.on_change_ds()
         self.check_pending_changes()
         self.update_message = True
+
     def _ipython_display_(self): display(self.widget)
 
     def on_change_ds(self, change=None):
-        info = L(o for o in self.iwis[self.dd_ds.index] if o[1]==self.dd_cats.value)
-        self.iw.set_fns(info.sorted(2, reverse=True).itemgot(0))
+        ds = self.dd_ds.index
+        cat = self.dd_cats.value
+        iwi = self.iwis[ds]
+        info = L([o for o in iwi if o[1] == cat])
+        fns = info.sorted(2, reverse=True).itemgot(0)
+        self.iw.set_fns(fns)
         dd_children = L(self.iw.widget.children).itemgot(1)
         for dd_child in dd_children:
             dd_child.observe(self.on_change_dd_item, 'value')
