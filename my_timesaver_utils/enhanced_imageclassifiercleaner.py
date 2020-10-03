@@ -82,7 +82,7 @@ class EnhancedImageClassifierCleaner(GetAttr):
 
     def recompute_loss(self, new_file):
         dl = self.learn.dls.test_dl([new_file],num_workers=0, with_labels=True)
-        _,_,_,_,losses = learn.get_preds(dl=dl,
+        _,_,_,_,losses = self.learn.get_preds(dl=dl,
                     with_input=True, with_loss=True, with_decoded=True)
         return losses[0]
 
