@@ -6,12 +6,15 @@ __all__ = ['entropy', 'uncertainty_best_probability', 'BALD', 'top_k_uncertainty
 from fastai.callback.preds import MCDropoutCallback
 from fastai.learner import Learner
 from fastcore.foundation import patch, L
+from fastcore.basics import tuplify,detuplify
 from fastai.torch_core import to_np
 
 # Cell
 from collections import Counter
 import seaborn as sns
 import torch
+import pandas as pd
+import numpy as np
 
 # Cell
 def entropy(probs):
@@ -168,3 +171,20 @@ def bayes_predict_with_uncertainty(self:Learner, item, rm_type_tfms=None, with_i
                              reduce=reduce)
     ent = res[4] if with_input else res[3]
     return (ent < threshold_entropy,) + res
+
+# Cell
+@patch
+def bayes_build_inference_dfdlpreds(self:Learner, path, dataset, item_count=100,n_sample=10):
+    items = get_image_files(path).shuffle()[:item_count]
+    dl = self.dls.test_dl(items.map(lambda o: PILImage.create(o)), num_workers=0)
+    res = self.bayes_get_preds(dl=dl,n_sample=n_sample)
+    ents = res[2]
+    preds = res[0]
+    unc = uncertainty_best_probability(preds)
+    bald = BALD(preds)
+    df = pd.DataFrame(pd.Series(items,name='image_files'))
+    df['entropy'] = pd.Series(ents,name='entropy')
+    df['best_prob_uncertainty'] = pd.Series(unc,name='best_prob_uncertainty')
+    df['bald'] = pd.Series(bald,name='bald')
+    df['dataset'] = dataset
+    return (df,dl, preds)

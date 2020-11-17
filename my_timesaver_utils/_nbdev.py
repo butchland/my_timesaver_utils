@@ -25,7 +25,8 @@ index = {"PROF_DATA": "01_profiling.ipynb",
          "plot_hist_groups": "05_bayes_inference.ipynb",
          "Learner.bayes_get_preds": "05_bayes_inference.ipynb",
          "Learner.bayes_predict": "05_bayes_inference.ipynb",
-         "Learner.bayes_predict_with_uncertainty": "05_bayes_inference.ipynb"}
+         "Learner.bayes_predict_with_uncertainty": "05_bayes_inference.ipynb",
+         "Learner.bayes_build_inference_dfdlpreds": "05_bayes_inference.ipynb"}
 
 modules = ["profiling.py",
            "profiling_callback.py",
