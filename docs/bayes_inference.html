@@ -316,7 +316,10 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fastai.test_utils</span> <span class="kn">import</span> <span class="n">synth_dbunch</span><span class="p">,</span> <span class="n">synth_learner</span>
-<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">nullcontext</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">nullcontext</span> <span class="c1"># python 3.7 only</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">suppress</span> <span class="k">as</span> <span class="n">nullcontext</span> <span class="c1"># supported in 3.6 below</span>
 <span class="n">dls</span> <span class="o">=</span> <span class="n">synth_dbunch</span><span class="p">()</span>
 <span class="n">dls</span><span class="o">.</span><span class="n">vocab</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,]</span>
 <span class="n">learner</span> <span class="o">=</span> <span class="n">synth_learner</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dls</span><span class="p">)</span>
