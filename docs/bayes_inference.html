@@ -62,7 +62,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="entropy" class="doc_header"><code>entropy</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L20" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>entropy</code>(<strong><code>probs</code></strong>)</p>
+<h4 id="entropy" class="doc_header"><code>entropy</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>entropy</code>(<strong><code>probs</code></strong>)</p>
 </blockquote>
 <p>Return the prediction of a T<em>N</em>C tensor with :</p>
 <ul>
@@ -92,7 +92,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="uncertainty_best_probability" class="doc_header"><code>uncertainty_best_probability</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L30" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>uncertainty_best_probability</code>(<strong><code>probs</code></strong>)</p>
+<h4 id="uncertainty_best_probability" class="doc_header"><code>uncertainty_best_probability</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L32" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>uncertainty_best_probability</code>(<strong><code>probs</code></strong>)</p>
 </blockquote>
 <p>Return the standard deviation of the most probable class</p>
 
@@ -117,7 +117,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="BALD" class="doc_header"><code>BALD</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L38" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>BALD</code>(<strong><code>probs</code></strong>)</p>
+<h4 id="BALD" class="doc_header"><code>BALD</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>BALD</code>(<strong><code>probs</code></strong>)</p>
 </blockquote>
 <p>Information Gain, distance between the entropy of averages and average of entropy</p>
 
@@ -142,7 +142,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="top_k_uncertainty" class="doc_header"><code>top_k_uncertainty</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>top_k_uncertainty</code>(<strong><code>s</code></strong>, <strong><code>k</code></strong>=<em><code>5</code></em>, <strong><code>reverse</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="top_k_uncertainty" class="doc_header"><code>top_k_uncertainty</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L49" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>top_k_uncertainty</code>(<strong><code>s</code></strong>, <strong><code>k</code></strong>=<em><code>5</code></em>, <strong><code>reverse</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Return the top k indexes</p>
 
@@ -167,7 +167,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_hist_groups" class="doc_header"><code>plot_hist_groups</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_hist_groups</code>(<strong><code>pred</code></strong>, <strong><code>y</code></strong>, <strong><code>metric</code></strong>, <strong><code>bins</code></strong>=<em><code>None</code></em>, <strong><code>figsize</code></strong>=<em><code>(16, 16)</code></em>)</p>
+<h4 id="plot_hist_groups" class="doc_header"><code>plot_hist_groups</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_hist_groups</code>(<strong><code>pred</code></strong>, <strong><code>y</code></strong>, <strong><code>metric</code></strong>, <strong><code>bins</code></strong>=<em><code>None</code></em>, <strong><code>figsize</code></strong>=<em><code>(16, 16)</code></em>)</p>
 </blockquote>
 
 </div>
@@ -205,7 +205,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Learner.bayes_get_preds" class="doc_header"><code>Learner.bayes_get_preds</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L82" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_get_preds</code>(<strong><code>ds_idx</code></strong>=<em><code>1</code></em>, <strong><code>dl</code></strong>=<em><code>None</code></em>, <strong><code>n_sample</code></strong>=<em><code>10</code></em>, <strong><code>act</code></strong>=<em><code>None</code></em>, <strong><code>with_loss</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="Learner.bayes_get_preds" class="doc_header"><code>Learner.bayes_get_preds</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L84" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_get_preds</code>(<strong><code>ds_idx</code></strong>=<em><code>1</code></em>, <strong><code>dl</code></strong>=<em><code>None</code></em>, <strong><code>n_sample</code></strong>=<em><code>10</code></em>, <strong><code>act</code></strong>=<em><code>None</code></em>, <strong><code>with_loss</code></strong>=<em><code>False</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Get MC Dropout predictions from a learner, and eventually reduce the samples</p>
 
@@ -243,7 +243,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Learner.bayes_predict" class="doc_header"><code>Learner.bayes_predict</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_predict</code>(<strong><code>item</code></strong>, <strong><code>rm_type_tfms</code></strong>=<em><code>None</code></em>, <strong><code>with_input</code></strong>=<em><code>False</code></em>, <strong><code>sample_size</code></strong>=<em><code>10</code></em>, <strong><code>reduce</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="Learner.bayes_predict" class="doc_header"><code>Learner.bayes_predict</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_predict</code>(<strong><code>item</code></strong>, <strong><code>rm_type_tfms</code></strong>=<em><code>None</code></em>, <strong><code>with_input</code></strong>=<em><code>False</code></em>, <strong><code>sample_size</code></strong>=<em><code>10</code></em>, <strong><code>reduce</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>gets a sample distribution of predictions and computes entropy</p>
 
@@ -281,7 +281,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Learner.bayes_predict_with_uncertainty" class="doc_header"><code>Learner.bayes_predict_with_uncertainty</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L166" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_predict_with_uncertainty</code>(<strong><code>item</code></strong>, <strong><code>rm_type_tfms</code></strong>=<em><code>None</code></em>, <strong><code>with_input</code></strong>=<em><code>False</code></em>, <strong><code>threshold_entropy</code></strong>=<em><code>0.2</code></em>, <strong><code>sample_size</code></strong>=<em><code>10</code></em>, <strong><code>reduce</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="Learner.bayes_predict_with_uncertainty" class="doc_header"><code>Learner.bayes_predict_with_uncertainty</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L168" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_predict_with_uncertainty</code>(<strong><code>item</code></strong>, <strong><code>rm_type_tfms</code></strong>=<em><code>None</code></em>, <strong><code>with_input</code></strong>=<em><code>False</code></em>, <strong><code>threshold_entropy</code></strong>=<em><code>0.2</code></em>, <strong><code>sample_size</code></strong>=<em><code>10</code></em>, <strong><code>reduce</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>gets prediction results plus if prediction passes entropy threshold</p>
 
@@ -319,7 +319,7 @@ but modified to use Pytorch tensors instead of Numpy arrays</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Learner.bayes_build_inference_dfdlpreds" class="doc_header"><code>Learner.bayes_build_inference_dfdlpreds</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L176" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_build_inference_dfdlpreds</code>(<strong><code>path</code></strong>, <strong><code>dataset</code></strong>, <strong><code>item_count</code></strong>=<em><code>100</code></em>, <strong><code>n_sample</code></strong>=<em><code>10</code></em>)</p>
+<h4 id="Learner.bayes_build_inference_dfdlpreds" class="doc_header"><code>Learner.bayes_build_inference_dfdlpreds</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/bayes_inference.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.bayes_build_inference_dfdlpreds</code>(<strong><code>path</code></strong>, <strong><code>dataset</code></strong>, <strong><code>item_count</code></strong>=<em><code>100</code></em>, <strong><code>n_sample</code></strong>=<em><code>10</code></em>)</p>
 </blockquote>
 
 </div>

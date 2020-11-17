@@ -8,6 +8,8 @@ from fastai.learner import Learner
 from fastcore.foundation import patch, L
 from fastcore.basics import tuplify,detuplify
 from fastai.torch_core import to_np
+from fastai.data.transforms import get_image_files
+from fastai.vision.core import PILImage
 
 # Cell
 from collections import Counter
