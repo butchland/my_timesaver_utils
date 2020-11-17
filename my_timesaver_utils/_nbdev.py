@@ -17,12 +17,21 @@ index = {"PROF_DATA": "01_profiling.ipynb",
          "Learner.to_my_profile": "02_profiling_callback.ipynb",
          "parent_move_file": "03_enhanced_imageclassifiercleaner.ipynb",
          "EnhancedImageClassifierCleaner": "03_enhanced_imageclassifiercleaner.ipynb",
-         "hello_world": "04_enhanced_jmd_imagecleaner.ipynb"}
+         "hello_world": "04_enhanced_jmd_imagecleaner.ipynb",
+         "entropy": "05_bayes_inference.ipynb",
+         "uncertainty_best_probability": "05_bayes_inference.ipynb",
+         "BALD": "05_bayes_inference.ipynb",
+         "top_k_uncertainty": "05_bayes_inference.ipynb",
+         "plot_hist_groups": "05_bayes_inference.ipynb",
+         "Learner.bayes_get_preds": "05_bayes_inference.ipynb",
+         "Learner.bayes_predict": "05_bayes_inference.ipynb",
+         "Learner.bayes_predict_with_uncertainty": "05_bayes_inference.ipynb"}
 
 modules = ["profiling.py",
            "profiling_callback.py",
            "enhanced_imageclassifiercleaner.py",
-           "enhanced_jmd_imagecleaner.py"]
+           "enhanced_jmd_imagecleaner.py",
+           "bayes_inference.py"]
 
 doc_url = "https://butchland.github.io/my_timesaver_utils/"
 

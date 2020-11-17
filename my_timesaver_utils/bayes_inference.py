@@ -3,15 +3,12 @@
 __all__ = ['entropy', 'uncertainty_best_probability', 'BALD', 'top_k_uncertainty', 'plot_hist_groups']
 
 # Cell
-#export
-from fastai.vision.all import *
 from fastai.callback.preds import MCDropoutCallback
 from fastai.learner import Learner
 from fastcore.foundation import patch, L
 from fastai.torch_core import to_np
 
 # Cell
-#export
 from collections import Counter
 import seaborn as sns
 import torch
