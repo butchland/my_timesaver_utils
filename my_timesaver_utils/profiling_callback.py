@@ -88,13 +88,16 @@ class MyProfileCallback(Callback):
     def after_loss(self):
         if self.learn.training:
             end_record('train_loss')
-            start_record('train_backward')
+
         else:
             end_record('valid_loss')
             # no start train_backward because
             # valid doesnt execute backward
 
-    def after_backward(self):
+    def before_backward(self):
+        start_record('train_backward')
+
+    def before_step(self):
         end_record('train_backward')
         start_record('train_step')
 
