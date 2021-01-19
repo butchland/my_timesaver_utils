@@ -38,6 +38,7 @@ def _print_stat(func_name, level, data, indent_per_level=3):
 # Cell
 class MyProfileCallback(Callback):
     'Callback to profile training lifecycle event performance'
+    order = -15 # should run before any callbacks
     ordered_callbacks = (
         ('fit',0),
         ('epoch',1),
