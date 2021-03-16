@@ -19,11 +19,14 @@ entries:
       title: Enhanced Image Classifier Cleaner
       url: enhanced_imageclassifiercleaner
     - output: web,pdf
-      title: Title
-      url: enhanced_jmd_imagecleaner
+      title: Enhanced JMD Image Cleaner
+      url: enhanced_jmd_imagecleaner.html
     - output: web,pdf
       title: 'Bayes Inference '
       url: bayes_inference
+    - output: web,pdf
+      title: Misc Splitters
+      url: misc_splitters
     output: web
     title: my_timesaver_utils
   output: web

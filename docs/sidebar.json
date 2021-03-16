@@ -4,7 +4,8 @@
     "Profiling": "profiling",
     "Profiling Callback": "profiling_callback",
     "Enhanced Image Classifier Cleaner": "enhanced_imageclassifiercleaner",
-    "Title": "enhanced_jmd_imagecleaner",
-    "Bayes Inference ": "bayes_inference"
+    "Enhanced JMD Image Cleaner": "enhanced_jmd_imagecleaner",
+    "Bayes Inference ": "bayes_inference",
+    "Misc Splitters": "misc_splitters"
   }
 }
