@@ -54,30 +54,30 @@ nb_path: "nbs/02_profiling_callback.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>FastAI Training Event Lifecycle Methods</strong></p>
 
-<pre><code>begin_fit
-      begin_epoch
-            begin_train
-                     begin_batch
-                           after_pred
-                           after_loss
-                           after_backward
-                           after_step
+<pre><code>after_create
+
+before_fit
+      before_epoch
+            before_train
+                before_batch
+                    after_pred
+                    after_loss
+                    before_backward
+                    after_backward
+                    after_cancel_step
+                    after_step
                     after_cancel_batch
-                    after_batch            
+                after_batch 
+            after_cancel_train                    
             after_train
-            after_cancel_train
-            begin_validate
-                    begin_batch
-                           after_pred
-                           after_loss
-                           after_backward
-                           after_step
-                    after_cancel_batch
-                    after_batch
-
-         after_cancel_validate
-             after_validate
-
+            before_validate
+                before_batch
+                    after_pred
+                    after_loss
+                after_cancel_batch
+                after_batch
+            after_cancel_validate
+            after_validate
       after_epoch
 after_cancel_fit       
 after_fit</code></pre>
@@ -128,7 +128,7 @@ after_fit</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Learner.to_my_profile" class="doc_header"><code>Learner.to_my_profile</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/profiling_callback.py#L260" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.to_my_profile</code>(<strong><code>reset</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="Learner.to_my_profile" class="doc_header"><code>Learner.to_my_profile</code><a href="https://github.com/butchland/my_timesaver_utils/tree/master/my_timesaver_utils/profiling_callback.py#L264" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.to_my_profile</code>(<strong><code>reset</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Add my_profile callback to learner</p>
 
@@ -271,7 +271,7 @@ after_fit</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learner</span><span class="o">.</span><span class="n">to_my_profile</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learner</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -284,9 +284,107 @@ after_fit</code></pre>
 <div class="output_area">
 
 
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;fastai.learner.Learner at 0x130955f90&gt;</pre>
+<pre>Sequential (Input shape: 64)
+============================================================================
+Layer (type)         Output Shape         Param #    Trainable 
+============================================================================
+                     64 x 64 x 14 x 14   
+Conv2d                                    9408       False     
+BatchNorm2d                               128        True      
+ReLU                                                           
+MaxPool2d                                                      
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+ReLU                                                           
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+ReLU                                                           
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+____________________________________________________________________________
+                     64 x 128 x 4 x 4    
+Conv2d                                    73728      False     
+BatchNorm2d                               256        True      
+ReLU                                                           
+Conv2d                                    147456     False     
+BatchNorm2d                               256        True      
+Conv2d                                    8192       False     
+BatchNorm2d                               256        True      
+Conv2d                                    147456     False     
+BatchNorm2d                               256        True      
+ReLU                                                           
+Conv2d                                    147456     False     
+BatchNorm2d                               256        True      
+____________________________________________________________________________
+                     64 x 256 x 2 x 2    
+Conv2d                                    294912     False     
+BatchNorm2d                               512        True      
+ReLU                                                           
+Conv2d                                    589824     False     
+BatchNorm2d                               512        True      
+Conv2d                                    32768      False     
+BatchNorm2d                               512        True      
+Conv2d                                    589824     False     
+BatchNorm2d                               512        True      
+ReLU                                                           
+Conv2d                                    589824     False     
+BatchNorm2d                               512        True      
+____________________________________________________________________________
+                     64 x 512 x 1 x 1    
+Conv2d                                    1179648    False     
+BatchNorm2d                               1024       True      
+ReLU                                                           
+Conv2d                                    2359296    False     
+BatchNorm2d                               1024       True      
+Conv2d                                    131072     False     
+BatchNorm2d                               1024       True      
+Conv2d                                    2359296    False     
+BatchNorm2d                               1024       True      
+ReLU                                                           
+Conv2d                                    2359296    False     
+BatchNorm2d                               1024       True      
+AdaptiveAvgPool2d                                              
+AdaptiveMaxPool2d                                              
+Flatten                                                        
+BatchNorm1d                               2048       True      
+Dropout                                                        
+____________________________________________________________________________
+                     64 x 512            
+Linear                                    524288     True      
+ReLU                                                           
+BatchNorm1d                               1024       True      
+Dropout                                                        
+____________________________________________________________________________
+                     64 x 2              
+Linear                                    1024       True      
+____________________________________________________________________________
+
+Total params: 11,704,896
+Total trainable params: 537,984
+Total non-trainable params: 11,166,912
+
+Optimizer used: &lt;function Adam at 0x134d4d9e0&gt;
+Loss function: FlattenedLoss of CrossEntropyLoss()
+
+Model frozen up to parameter group #2
+
+Callbacks:
+  - TrainEvalCallback
+  - Recorder
+  - ProgressCallback</pre>
 </div>
 
 </div>
@@ -304,7 +402,7 @@ after_fit</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learner</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learner</span><span class="o">.</span><span class="n">to_my_profile</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -319,145 +417,7 @@ after_fit</code></pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Sequential (Input shape: [&#39;64 x 3 x 28 x 28&#39;])
-================================================================
-Layer (type)         Output Shape         Param #    Trainable 
-================================================================
-Conv2d               64 x 64 x 14 x 14    9,408      False     
-________________________________________________________________
-BatchNorm2d          64 x 64 x 14 x 14    128        True      
-________________________________________________________________
-ReLU                 64 x 64 x 14 x 14    0          False     
-________________________________________________________________
-MaxPool2d            64 x 64 x 7 x 7      0          False     
-________________________________________________________________
-Conv2d               64 x 64 x 7 x 7      36,864     False     
-________________________________________________________________
-BatchNorm2d          64 x 64 x 7 x 7      128        True      
-________________________________________________________________
-ReLU                 64 x 64 x 7 x 7      0          False     
-________________________________________________________________
-Conv2d               64 x 64 x 7 x 7      36,864     False     
-________________________________________________________________
-BatchNorm2d          64 x 64 x 7 x 7      128        True      
-________________________________________________________________
-Conv2d               64 x 64 x 7 x 7      36,864     False     
-________________________________________________________________
-BatchNorm2d          64 x 64 x 7 x 7      128        True      
-________________________________________________________________
-ReLU                 64 x 64 x 7 x 7      0          False     
-________________________________________________________________
-Conv2d               64 x 64 x 7 x 7      36,864     False     
-________________________________________________________________
-BatchNorm2d          64 x 64 x 7 x 7      128        True      
-________________________________________________________________
-Conv2d               64 x 128 x 4 x 4     73,728     False     
-________________________________________________________________
-BatchNorm2d          64 x 128 x 4 x 4     256        True      
-________________________________________________________________
-ReLU                 64 x 128 x 4 x 4     0          False     
-________________________________________________________________
-Conv2d               64 x 128 x 4 x 4     147,456    False     
-________________________________________________________________
-BatchNorm2d          64 x 128 x 4 x 4     256        True      
-________________________________________________________________
-Conv2d               64 x 128 x 4 x 4     8,192      False     
-________________________________________________________________
-BatchNorm2d          64 x 128 x 4 x 4     256        True      
-________________________________________________________________
-Conv2d               64 x 128 x 4 x 4     147,456    False     
-________________________________________________________________
-BatchNorm2d          64 x 128 x 4 x 4     256        True      
-________________________________________________________________
-ReLU                 64 x 128 x 4 x 4     0          False     
-________________________________________________________________
-Conv2d               64 x 128 x 4 x 4     147,456    False     
-________________________________________________________________
-BatchNorm2d          64 x 128 x 4 x 4     256        True      
-________________________________________________________________
-Conv2d               64 x 256 x 2 x 2     294,912    False     
-________________________________________________________________
-BatchNorm2d          64 x 256 x 2 x 2     512        True      
-________________________________________________________________
-ReLU                 64 x 256 x 2 x 2     0          False     
-________________________________________________________________
-Conv2d               64 x 256 x 2 x 2     589,824    False     
-________________________________________________________________
-BatchNorm2d          64 x 256 x 2 x 2     512        True      
-________________________________________________________________
-Conv2d               64 x 256 x 2 x 2     32,768     False     
-________________________________________________________________
-BatchNorm2d          64 x 256 x 2 x 2     512        True      
-________________________________________________________________
-Conv2d               64 x 256 x 2 x 2     589,824    False     
-________________________________________________________________
-BatchNorm2d          64 x 256 x 2 x 2     512        True      
-________________________________________________________________
-ReLU                 64 x 256 x 2 x 2     0          False     
-________________________________________________________________
-Conv2d               64 x 256 x 2 x 2     589,824    False     
-________________________________________________________________
-BatchNorm2d          64 x 256 x 2 x 2     512        True      
-________________________________________________________________
-Conv2d               64 x 512 x 1 x 1     1,179,648  False     
-________________________________________________________________
-BatchNorm2d          64 x 512 x 1 x 1     1,024      True      
-________________________________________________________________
-ReLU                 64 x 512 x 1 x 1     0          False     
-________________________________________________________________
-Conv2d               64 x 512 x 1 x 1     2,359,296  False     
-________________________________________________________________
-BatchNorm2d          64 x 512 x 1 x 1     1,024      True      
-________________________________________________________________
-Conv2d               64 x 512 x 1 x 1     131,072    False     
-________________________________________________________________
-BatchNorm2d          64 x 512 x 1 x 1     1,024      True      
-________________________________________________________________
-Conv2d               64 x 512 x 1 x 1     2,359,296  False     
-________________________________________________________________
-BatchNorm2d          64 x 512 x 1 x 1     1,024      True      
-________________________________________________________________
-ReLU                 64 x 512 x 1 x 1     0          False     
-________________________________________________________________
-Conv2d               64 x 512 x 1 x 1     2,359,296  False     
-________________________________________________________________
-BatchNorm2d          64 x 512 x 1 x 1     1,024      True      
-________________________________________________________________
-AdaptiveAvgPool2d    64 x 512 x 1 x 1     0          False     
-________________________________________________________________
-AdaptiveMaxPool2d    64 x 512 x 1 x 1     0          False     
-________________________________________________________________
-Flatten              64 x 1024            0          False     
-________________________________________________________________
-BatchNorm1d          64 x 1024            2,048      True      
-________________________________________________________________
-Dropout              64 x 1024            0          False     
-________________________________________________________________
-Linear               64 x 512             524,288    True      
-________________________________________________________________
-ReLU                 64 x 512             0          False     
-________________________________________________________________
-BatchNorm1d          64 x 512             1,024      True      
-________________________________________________________________
-Dropout              64 x 512             0          False     
-________________________________________________________________
-Linear               64 x 2               1,024      True      
-________________________________________________________________
-
-Total params: 11,704,896
-Total trainable params: 537,984
-Total non-trainable params: 11,166,912
-
-Optimizer used: &lt;function Adam at 0x12fe710e0&gt;
-Loss function: FlattenedLoss of CrossEntropyLoss()
-
-Model frozen up to parameter group number 2
-
-Callbacks:
-  - TrainEvalCallback
-  - Recorder
-  - ProgressCallback
-  - MyProfileCallback</pre>
+<pre>&lt;fastai.learner.Learner at 0x135ecafd0&gt;</pre>
 </div>
 
 </div>
@@ -578,9 +538,9 @@ Callbacks:
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.646651</td>
-      <td>0.224889</td>
-      <td>0.909871</td>
+      <td>0.693655</td>
+      <td>0.486362</td>
+      <td>0.749642</td>
       <td>00:14</td>
     </tr>
   </tbody>
@@ -615,19 +575,19 @@ Callbacks:
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>fit  called 1 times. max: 14.688 avg: 14.688
-   epoch  called 1 times. max: 14.678 avg: 14.678
-      train  called 1 times. max: 12.425 avg: 12.425
-         train_batch  called 11 times. max: 1.170 avg: 1.081
-            train_pred  called 11 times. max: 0.304 avg: 0.236
+<pre>fit  called 1 times. max: 14.826 avg: 14.826
+   epoch  called 1 times. max: 14.826 avg: 14.826
+      train  called 1 times. max: 12.539 avg: 12.539
+         train_batch  called 11 times. max: 1.147 avg: 1.093
+            train_pred  called 11 times. max: 0.253 avg: 0.219
             train_loss  called 11 times. max: 0.001 avg: 0.001
-            train_backward  called 11 times. max: 0.848 avg: 0.834
-            train_step  called 11 times. max: 0.011 avg: 0.008
-            train_zero_grad  called 11 times. max: 0.006 avg: 0.003
-      valid  called 1 times. max: 2.245 avg: 2.245
-         valid_batch  called 11 times. max: 0.195 avg: 0.181
-            valid_pred  called 11 times. max: 0.188 avg: 0.178
-            valid_loss  called 11 times. max: 0.001 avg: 0.001
+            train_backward  called 11 times. max: 0.900 avg: 0.861
+            train_step  called 11 times. max: 0.014 avg: 0.010
+            train_zero_grad  called 11 times. max: 0.002 avg: 0.002
+      valid  called 1 times. max: 2.283 avg: 2.283
+         valid_batch  called 11 times. max: 0.203 avg: 0.181
+            valid_pred  called 11 times. max: 0.202 avg: 0.180
+            valid_loss  called 11 times. max: 0.002 avg: 0.001
 </pre>
 </div>
 </div>
@@ -660,127 +620,127 @@ Callbacks:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;fit&#39;, 0, [14.687530994415283]),
- (&#39;epoch&#39;, 1, [14.67847228050232]),
- (&#39;train&#39;, 2, [12.425010204315186]),
+<pre>[(&#39;fit&#39;, 0, [14.826272010803223]),
+ (&#39;epoch&#39;, 1, [14.825506210327148]),
+ (&#39;train&#39;, 2, [12.53893232345581]),
  (&#39;train_batch&#39;,
   3,
-  [1.1697580814361572,
-   1.0837702751159668,
-   1.0729010105133057,
-   1.0813207626342773,
-   1.0650250911712646,
-   1.0707719326019287,
-   1.087137222290039,
-   1.0528171062469482,
-   1.0657010078430176,
-   1.0718588829040527,
-   1.0731070041656494]),
+  [1.147028923034668,
+   1.0965969562530518,
+   1.0539379119873047,
+   1.0700407028198242,
+   1.0998239517211914,
+   1.0905580520629883,
+   1.0969460010528564,
+   1.0751848220825195,
+   1.1051452159881592,
+   1.0613350868225098,
+   1.1278557777404785]),
  (&#39;train_pred&#39;,
   4,
-  [0.3040790557861328,
-   0.23769092559814453,
-   0.2236030101776123,
-   0.23487424850463867,
-   0.22310113906860352,
-   0.22788310050964355,
-   0.23348093032836914,
-   0.23145484924316406,
-   0.21995902061462402,
-   0.22831082344055176,
-   0.2304689884185791]),
+  [0.25260400772094727,
+   0.2151319980621338,
+   0.21577811241149902,
+   0.21297788619995117,
+   0.2168900966644287,
+   0.21621465682983398,
+   0.21819210052490234,
+   0.2154397964477539,
+   0.21802592277526855,
+   0.21338295936584473,
+   0.21511292457580566]),
  (&#39;train_loss&#39;,
   4,
-  [0.0010890960693359375,
-   0.0006949901580810547,
-   0.0007219314575195312,
-   0.0006780624389648438,
-   0.0010340213775634766,
-   0.0007722377777099609,
-   0.0006699562072753906,
-   0.0006821155548095703,
-   0.0007212162017822266,
-   0.0006709098815917969,
-   0.0006799697875976562]),
+  [0.0011301040649414062,
+   0.0007872581481933594,
+   0.000743865966796875,
+   0.0007627010345458984,
+   0.0007507801055908203,
+   0.0007741451263427734,
+   0.0007429122924804688,
+   0.0007698535919189453,
+   0.0007410049438476562,
+   0.0007848739624023438,
+   0.0007369518280029297]),
  (&#39;train_backward&#39;,
   4,
-  [0.8481080532073975,
-   0.8349168300628662,
-   0.8384270668029785,
-   0.8354089260101318,
-   0.8305647373199463,
-   0.8319101333618164,
-   0.8415019512176514,
-   0.8106880187988281,
-   0.8350062370300293,
-   0.8329300880432129,
-   0.8316891193389893]),
+  [0.8776719570159912,
+   0.8692278861999512,
+   0.8258969783782959,
+   0.8449299335479736,
+   0.8709321022033691,
+   0.862293004989624,
+   0.8666291236877441,
+   0.8475267887115479,
+   0.8750889301300049,
+   0.8348186016082764,
+   0.9004881381988525]),
  (&#39;train_step&#39;,
   4,
-  [0.01085805892944336,
-   0.007528781890869141,
-   0.007549762725830078,
-   0.007534980773925781,
-   0.007409095764160156,
-   0.007349967956542969,
-   0.009161949157714844,
-   0.007405996322631836,
-   0.007421016693115234,
-   0.007613182067871094,
-   0.007512092590332031]),
+  [0.013615131378173828,
+   0.009528875350952148,
+   0.009634017944335938,
+   0.009547948837280273,
+   0.009372234344482422,
+   0.009392976760864258,
+   0.009460210800170898,
+   0.00952601432800293,
+   0.009387016296386719,
+   0.009891986846923828,
+   0.009598970413208008]),
  (&#39;train_zero_grad&#39;,
   4,
-  [0.005597829818725586,
-   0.0029211044311523438,
-   0.002583026885986328,
-   0.002810239791870117,
-   0.002899169921875,
-   0.0028409957885742188,
-   0.0023050308227539062,
-   0.0025720596313476562,
-   0.0025682449340820312,
-   0.0023169517517089844,
-   0.0027413368225097656]),
- (&#39;valid&#39;, 2, [2.2446630001068115]),
+  [0.0018649101257324219,
+   0.001825094223022461,
+   0.0017778873443603516,
+   0.0017271041870117188,
+   0.0017819404602050781,
+   0.0017867088317871094,
+   0.0018239021301269531,
+   0.0018229484558105469,
+   0.0018050670623779297,
+   0.0023589134216308594,
+   0.0018210411071777344]),
+ (&#39;valid&#39;, 2, [2.282799005508423]),
  (&#39;valid_batch&#39;,
   3,
-  [0.19499421119689941,
-   0.17691898345947266,
-   0.18032121658325195,
-   0.17589092254638672,
-   0.17492890357971191,
-   0.17957305908203125,
-   0.1777338981628418,
-   0.18741679191589355,
-   0.17940211296081543,
-   0.1895129680633545,
-   0.17221283912658691]),
+  [0.20348501205444336,
+   0.1881699562072754,
+   0.1850287914276123,
+   0.1786811351776123,
+   0.1722097396850586,
+   0.17976093292236328,
+   0.1717219352722168,
+   0.17983412742614746,
+   0.18445897102355957,
+   0.17809414863586426,
+   0.16802597045898438]),
  (&#39;valid_pred&#39;,
   4,
-  [0.18814992904663086,
-   0.17379498481750488,
-   0.17746996879577637,
-   0.17304277420043945,
-   0.17206573486328125,
-   0.17669415473937988,
-   0.17478203773498535,
-   0.18450498580932617,
-   0.17637085914611816,
-   0.1866168975830078,
-   0.16930532455444336]),
+  [0.20157313346862793,
+   0.18747615814208984,
+   0.184248685836792,
+   0.17804694175720215,
+   0.17160391807556152,
+   0.1789689064025879,
+   0.171112060546875,
+   0.1790611743927002,
+   0.18384408950805664,
+   0.17748594284057617,
+   0.16724205017089844]),
  (&#39;valid_loss&#39;,
   4,
-  [0.0013051033020019531,
-   0.0005512237548828125,
-   0.0005471706390380859,
-   0.0005497932434082031,
-   0.0005450248718261719,
-   0.0005440711975097656,
-   0.0005459785461425781,
-   0.0005478858947753906,
-   0.0005469322204589844,
-   0.0005431175231933594,
-   0.0005438327789306641])]</pre>
+  [0.0017740726470947266,
+   0.0005881786346435547,
+   0.000659942626953125,
+   0.0005400180816650391,
+   0.000514984130859375,
+   0.0006740093231201172,
+   0.0005199909210205078,
+   0.0006546974182128906,
+   0.0005199909210205078,
+   0.0005161762237548828,
+   0.0006620883941650391])]</pre>
 </div>
 
 </div>
@@ -811,7 +771,7 @@ Callbacks:
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>         train_batch  called 11 times. max: 1.170 avg: 1.081
+<pre>         train_batch  called 11 times. max: 1.147 avg: 1.093
 </pre>
 </div>
 </div>
@@ -846,17 +806,17 @@ Callbacks:
 <div class="output_text output_subarea output_execute_result">
 <pre>(&#39;train_batch&#39;,
  3,
- [1.1697580814361572,
-  1.0837702751159668,
-  1.0729010105133057,
-  1.0813207626342773,
-  1.0650250911712646,
-  1.0707719326019287,
-  1.087137222290039,
-  1.0528171062469482,
-  1.0657010078430176,
-  1.0718588829040527,
-  1.0731070041656494])</pre>
+ [1.147028923034668,
+  1.0965969562530518,
+  1.0539379119873047,
+  1.0700407028198242,
+  1.0998239517211914,
+  1.0905580520629883,
+  1.0969460010528564,
+  1.0751848220825195,
+  1.1051452159881592,
+  1.0613350868225098,
+  1.1278557777404785])</pre>
 </div>
 
 </div>
@@ -992,9 +952,9 @@ Callbacks:
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.370858</td>
-      <td>0.235521</td>
-      <td>0.912732</td>
+      <td>0.339887</td>
+      <td>0.245247</td>
+      <td>0.908441</td>
       <td>00:14</td>
     </tr>
   </tbody>
@@ -1020,10 +980,10 @@ Callbacks:
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.231076</td>
-      <td>0.167055</td>
-      <td>0.939914</td>
-      <td>00:22</td>
+      <td>0.273823</td>
+      <td>0.196766</td>
+      <td>0.919886</td>
+      <td>00:21</td>
     </tr>
   </tbody>
 </table>
@@ -1057,18 +1017,18 @@ Callbacks:
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>fit  called 2 times. max: 22.034 avg: 18.256
-   epoch  called 2 times. max: 22.030 avg: 18.252
-      train  called 2 times. max: 19.765 avg: 16.002
-         train_batch  called 22 times. max: 2.025 avg: 1.429
-            train_pred  called 22 times. max: 0.302 avg: 0.232
+<pre>fit  called 2 times. max: 21.981 avg: 18.306
+   epoch  called 2 times. max: 21.980 avg: 18.305
+      train  called 2 times. max: 19.679 avg: 15.999
+         train_batch  called 22 times. max: 2.007 avg: 1.426
+            train_pred  called 22 times. max: 0.259 avg: 0.219
             train_loss  called 22 times. max: 0.001 avg: 0.001
-            train_backward  called 22 times. max: 1.520 avg: 1.132
-            train_step  called 22 times. max: 0.222 avg: 0.058
-            train_zero_grad  called 22 times. max: 0.011 avg: 0.005
-      valid  called 2 times. max: 2.258 avg: 2.244
-         valid_batch  called 22 times. max: 0.211 avg: 0.180
-            valid_pred  called 22 times. max: 0.204 avg: 0.177
+            train_backward  called 22 times. max: 1.592 avg: 1.150
+            train_step  called 22 times. max: 0.148 avg: 0.051
+            train_zero_grad  called 22 times. max: 0.007 avg: 0.004
+      valid  called 2 times. max: 2.306 avg: 2.301
+         valid_batch  called 22 times. max: 0.211 avg: 0.182
+            valid_pred  called 22 times. max: 0.209 avg: 0.181
             valid_loss  called 22 times. max: 0.002 avg: 0.001
 </pre>
 </div>
@@ -1131,10 +1091,10 @@ Callbacks:
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.158287</td>
-      <td>0.196981</td>
-      <td>0.929900</td>
-      <td>00:16</td>
+      <td>0.160970</td>
+      <td>0.161350</td>
+      <td>0.944206</td>
+      <td>00:15</td>
     </tr>
   </tbody>
 </table>
@@ -1159,9 +1119,9 @@ Callbacks:
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.090954</td>
-      <td>0.162717</td>
-      <td>0.944206</td>
+      <td>0.120808</td>
+      <td>0.129148</td>
+      <td>0.958512</td>
       <td>00:23</td>
     </tr>
   </tbody>
@@ -1196,18 +1156,18 @@ Callbacks:
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>fit  called 1 times. max: 23.094 avg: 23.094
-   epoch  called 1 times. max: 23.091 avg: 23.091
-      train  called 1 times. max: 20.766 avg: 20.766
-         train_batch  called 11 times. max: 2.104 avg: 1.863
-            train_pred  called 11 times. max: 0.265 avg: 0.231
+<pre>fit  called 1 times. max: 23.155 avg: 23.155
+   epoch  called 1 times. max: 23.154 avg: 23.154
+      train  called 1 times. max: 20.823 avg: 20.823
+         train_batch  called 11 times. max: 1.939 avg: 1.864
+            train_pred  called 11 times. max: 0.247 avg: 0.216
             train_loss  called 11 times. max: 0.001 avg: 0.001
-            train_backward  called 11 times. max: 1.648 avg: 1.519
-            train_step  called 11 times. max: 0.180 avg: 0.104
-            train_zero_grad  called 11 times. max: 0.011 avg: 0.008
-      valid  called 1 times. max: 2.318 avg: 2.318
-         valid_batch  called 11 times. max: 0.212 avg: 0.187
-            valid_pred  called 11 times. max: 0.209 avg: 0.183
+            train_backward  called 11 times. max: 1.590 avg: 1.546
+            train_step  called 11 times. max: 0.147 avg: 0.093
+            train_zero_grad  called 11 times. max: 0.008 avg: 0.007
+      valid  called 1 times. max: 2.326 avg: 2.326
+         valid_batch  called 11 times. max: 0.214 avg: 0.183
+            valid_pred  called 11 times. max: 0.212 avg: 0.182
             valid_loss  called 11 times. max: 0.002 avg: 0.001
 </pre>
 </div>
@@ -1230,22 +1190,6 @@ Callbacks:
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
