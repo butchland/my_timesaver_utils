@@ -12,7 +12,7 @@ index = {"PROF_DATA": "01_profiling.ipynb",
          "is_recording": "01_profiling.ipynb",
          "save_prof_data": "01_profiling.ipynb",
          "load_prof_data": "01_profiling.ipynb",
-         "FASTAI_AVAILABLE": "02_profiling_callback.ipynb",
+         "FASTAI_AVAILABLE": "06_misc_splitters.ipynb",
          "MyProfileCallback": "02_profiling_callback.ipynb",
          "Learner.to_my_profile": "02_profiling_callback.ipynb",
          "parent_move_file": "03_enhanced_imageclassifiercleaner.ipynb",
@@ -26,13 +26,16 @@ index = {"PROF_DATA": "01_profiling.ipynb",
          "Learner.bayes_get_preds": "05_bayes_inference.ipynb",
          "Learner.bayes_predict": "05_bayes_inference.ipynb",
          "Learner.bayes_predict_with_uncertainty": "05_bayes_inference.ipynb",
-         "Learner.bayes_build_inference_dfdlpreds": "05_bayes_inference.ipynb"}
+         "Learner.bayes_build_inference_dfdlpreds": "05_bayes_inference.ipynb",
+         "DumbFixedSplitter": "06_misc_splitters.ipynb",
+         "SubsetPercentageSplitter": "06_misc_splitters.ipynb"}
 
 modules = ["profiling.py",
            "profiling_callback.py",
            "enhanced_imageclassifiercleaner.py",
            "enhanced_jmd_imagecleaner.py",
-           "bayes_inference.py"]
+           "bayes_inference.py",
+           "misc_splitters.py"]
 
 doc_url = "https://butchland.github.io/my_timesaver_utils/"
 
