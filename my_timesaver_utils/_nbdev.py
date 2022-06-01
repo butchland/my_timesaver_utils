@@ -2,43 +2,49 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"PROF_DATA": "01_profiling.ipynb",
-         "profile_call": "01_profiling.ipynb",
-         "print_prof_data": "01_profiling.ipynb",
-         "clear_prof_data": "01_profiling.ipynb",
-         "get_prof_data": "01_profiling.ipynb",
-         "start_record": "01_profiling.ipynb",
-         "end_record": "01_profiling.ipynb",
-         "is_recording": "01_profiling.ipynb",
-         "save_prof_data": "01_profiling.ipynb",
-         "load_prof_data": "01_profiling.ipynb",
-         "FASTAI_AVAILABLE": "06_misc_splitters.ipynb",
-         "MyProfileCallback": "02_profiling_callback.ipynb",
-         "Learner.to_my_profile": "02_profiling_callback.ipynb",
-         "parent_move_file": "03_enhanced_imageclassifiercleaner.ipynb",
-         "EnhancedImageClassifierCleaner": "03_enhanced_imageclassifiercleaner.ipynb",
-         "hello_world": "04_enhanced_jmd_imagecleaner.ipynb",
-         "entropy": "05_bayes_inference.ipynb",
-         "uncertainty_best_probability": "05_bayes_inference.ipynb",
-         "BALD": "05_bayes_inference.ipynb",
-         "top_k_uncertainty": "05_bayes_inference.ipynb",
-         "plot_hist_groups": "05_bayes_inference.ipynb",
-         "Learner.bayes_get_preds": "05_bayes_inference.ipynb",
-         "Learner.bayes_predict": "05_bayes_inference.ipynb",
-         "Learner.bayes_predict_with_uncertainty": "05_bayes_inference.ipynb",
-         "Learner.bayes_build_inference_dfdlpreds": "05_bayes_inference.ipynb",
-         "DumbFixedSplitter": "06_misc_splitters.ipynb",
-         "SubsetPercentageSplitter": "06_misc_splitters.ipynb"}
+index = {
+    "PROF_DATA": "01_profiling.ipynb",
+    "profile_call": "01_profiling.ipynb",
+    "print_prof_data": "01_profiling.ipynb",
+    "clear_prof_data": "01_profiling.ipynb",
+    "get_prof_data": "01_profiling.ipynb",
+    "start_record": "01_profiling.ipynb",
+    "end_record": "01_profiling.ipynb",
+    "is_recording": "01_profiling.ipynb",
+    "save_prof_data": "01_profiling.ipynb",
+    "load_prof_data": "01_profiling.ipynb",
+    "FASTAI_AVAILABLE": "06_misc_splitters.ipynb",
+    "MyProfileCallback": "02_profiling_callback.ipynb",
+    "Learner.to_my_profile": "02_profiling_callback.ipynb",
+    "parent_move_file": "03_enhanced_imageclassifiercleaner.ipynb",
+    "EnhancedImageClassifierCleaner": "03_enhanced_imageclassifiercleaner.ipynb",
+    "hello_world": "04_enhanced_jmd_imagecleaner.ipynb",
+    "entropy": "05_bayes_inference.ipynb",
+    "uncertainty_best_probability": "05_bayes_inference.ipynb",
+    "BALD": "05_bayes_inference.ipynb",
+    "top_k_uncertainty": "05_bayes_inference.ipynb",
+    "plot_hist_groups": "05_bayes_inference.ipynb",
+    "Learner.bayes_get_preds": "05_bayes_inference.ipynb",
+    "Learner.bayes_predict": "05_bayes_inference.ipynb",
+    "Learner.bayes_predict_with_uncertainty": "05_bayes_inference.ipynb",
+    "Learner.bayes_build_inference_dfdlpreds": "05_bayes_inference.ipynb",
+    "DumbFixedSplitter": "06_misc_splitters.ipynb",
+    "SubsetPercentageSplitter": "06_misc_splitters.ipynb",
+}
 
-modules = ["profiling.py",
-           "profiling_callback.py",
-           "enhanced_imageclassifiercleaner.py",
-           "enhanced_jmd_imagecleaner.py",
-           "bayes_inference.py",
-           "misc_splitters.py"]
+modules = [
+    "profiling.py",
+    "profiling_callback.py",
+    "enhanced_imageclassifiercleaner.py",
+    "enhanced_jmd_imagecleaner.py",
+    "bayes_inference.py",
+    "misc_splitters.py",
+]
 
 doc_url = "https://butchland.github.io/my_timesaver_utils/"
 
 git_url = "https://github.com/butchland/my_timesaver_utils/tree/master/"
 
-def custom_doc_links(name): return None
+
+def custom_doc_links(name):
+    return None
